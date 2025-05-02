@@ -1,14 +1,16 @@
-package fomulario;
+package Services;
 
 import java.io.*;
 
-public class LerFormulario {
-    private static final File file = new File("formulario.txt");
+public class ArquivosPerguntas {
 
-    private void crairArquivo() {
+    private static void crairArquivo() {
+        File file = new File("formulario.txt");
         try (FileWriter fileWriter = new FileWriter(file);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.write("Qual o nome e sobrenome do pet?");
+            bufferedWriter.newLine();
+            bufferedWriter.write("Qual o tipo do pet (Cachorro/Gato)");
             bufferedWriter.newLine();
             bufferedWriter.write("Qual o sexo do animal?");
             bufferedWriter.newLine();
@@ -24,14 +26,21 @@ public class LerFormulario {
             throw new RuntimeException(e);
         }
     }
-    public void lerArquivo(){
+
+    public static String[] lerPerguntas() {
+        crairArquivo();
+        File file = new File("formulario.txt");
+        String[] perguntas = new String[7];
         try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String linha;
-            linha = bufferedReader.readLine();
-            System.out.println(linha);
-
+            int i = 0;
+            while ((linha = bufferedReader.readLine()) != null) {
+                perguntas[i] = linha;
+                i++;
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return perguntas;
     }
 }
