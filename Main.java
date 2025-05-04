@@ -1,4 +1,6 @@
+import Services.BuscarPet;
 import Services.CadastrarPet;
+import Services.MenuDeBusca;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -30,6 +32,9 @@ public class Main {
         switch (opcao){
             case 1:
                 CadastrarPet.ArmazenarDados();
+                break;
+            case 2:
+                MenuDeBusca.menu();
                 break;
         }
         input.close();

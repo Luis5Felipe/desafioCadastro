@@ -3,9 +3,8 @@ package Services;
 import java.io.*;
 
 public class ArquivosPerguntas {
-
+    private static final File file = new File("formulario.txt");
     private static void crairArquivo() {
-        File file = new File("formulario.txt");
         try (FileWriter fileWriter = new FileWriter(file);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.write("Qual o nome e sobrenome do pet?");
@@ -28,8 +27,9 @@ public class ArquivosPerguntas {
     }
 
     public static String[] lerPerguntas() {
-        crairArquivo();
-        File file = new File("formulario.txt");
+        if (!file.exists()){
+            crairArquivo();
+        }
         String[] perguntas = new String[7];
         try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String linha;

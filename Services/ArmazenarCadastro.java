@@ -21,7 +21,7 @@ public class ArmazenarCadastro {
 
         String nome = pet.getNome();
 
-        String arquivo = data + "-" + nome + ".txt";
+        String arquivo = data + "-" + nome.toUpperCase().trim() + ".txt";
 
         File file = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados\\" + arquivo);
 
