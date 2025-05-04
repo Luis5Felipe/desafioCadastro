@@ -1,7 +1,7 @@
 package Utils;
 
 public enum TipoAnimal {
-    CACHORRO("Cachorro"),
+    CACHORRO("CACHORRO"),
     GATO("GATO");
 
     private final String tipo;

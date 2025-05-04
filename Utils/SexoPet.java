@@ -1,8 +1,8 @@
 package Utils;
 
 public enum SexoPet {
-    Macho("Macho"),
-    Femea("Femêa");
+    MACHO("Macho"),
+    FEMEA("Femea");
 
     private final String sexoPet;
 
