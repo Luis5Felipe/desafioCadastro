@@ -1,7 +1,0 @@
-1 - Afonso Santos
-2 - CACHORRO
-3 - MACHO
-4 - 739,Rio  Bonito,Avenida Carlos Cardoso Filho 
-5 - 1.25anos
-6 - 20.0kg
-7 - Viralata
