@@ -13,9 +13,9 @@ public class BuscarPet {
     private static final File pasta = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados");
     public static void buscarPetNome() {
         System.out.println("Digite o nome ou sobrenome ou apenas um deles");
-        String nome = "Afonso Santos";//INPUT.nextLine();
+        String nome = INPUT.nextLine();
         System.out.println("Tipo de Animal");
-        String tipo = "cachorro";//INPUT.nextLine();
+        String tipo = INPUT.nextLine();
         if (TipoAnimal.CACHORRO.getTipo().equalsIgnoreCase(tipo)) {
             tipo = TipoAnimal.CACHORRO.getTipo();
         } else {

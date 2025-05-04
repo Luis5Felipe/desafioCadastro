@@ -12,7 +12,7 @@ public class MenuDeBusca {
         do {
             try {
                 erro = false;
-                opcao = 1; //input.nextInt();
+                opcao = input.nextInt();
             } catch (RuntimeException e) {
                 System.err.println("Apenas números inteiros são permitidos");
                 erro = true;
