@@ -7,8 +7,8 @@ public class Pet {
     private String nome;
     private SexoPet sexoPet;
     private TipoAnimal tipoAnimal;
-    private String[] endereco;
-    private int idade;
+    private String endereco;
+    private double idade;
     private double peso;
     private String race;
 
@@ -16,7 +16,7 @@ public class Pet {
 
     }
 
-    public Pet(String[] endereco, int idade, String nome, double peso, String race, SexoPet sexoPet, TipoAnimal tipoAnimal) {
+    public Pet(String endereco, double idade, String nome, double peso, String race, SexoPet sexoPet, TipoAnimal tipoAnimal) {
         this.endereco = endereco;
         this.idade = idade;
         this.nome = nome;
@@ -26,19 +26,19 @@ public class Pet {
         this.tipoAnimal = tipoAnimal;
     }
 
-    public String[] getEndereco() {
+    public String getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String[] endereco) {
+    public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
 
-    public int getIdade() {
+    public double getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(double idade) {
         this.idade = idade;
     }
 

@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class CadastrarPet {
     public static void ArmazenarDados() {
-        Scanner input = new Scanner(System.in);
         Pet pet = new Pet();
+        Scanner input = new Scanner(System.in);
 
         String[] perguntas = ArquivosPerguntas.lerPerguntas();
         boolean erro;
@@ -60,59 +60,63 @@ public class CadastrarPet {
         } while (erro);
 
         do {
+            final String naoInformado = "NÃO INFORMADO";
             String regex = ".*[^0-9a-zA-ZÀ-ÿ\\s,].*";
             String[] endereco = new String[3];
             System.out.println(perguntas[3]);
             System.out.println("Número da casa");
             endereco[0] = input.nextLine();
+            if(endereco[0] == null){
+                endereco[0] = naoInformado;
+            }
             System.out.println("Cidade");
             endereco[1] = input.nextLine();
             System.out.println("Rua");
             endereco[2] = input.nextLine();
             String juntarStrings = endereco[0] + "," + endereco[1] + "," + endereco[2];
-            if (endereco[0] == null || endereco[1] == null || endereco[2] == null) {
+            if (endereco[1] == null || endereco[2] == null) {
                 System.out.println("Você deve inserir o endereço completo, Exemplo [555 Rio de Janeiro Rua J]");
                 erro = true;
             } else if (juntarStrings.matches(regex)) {
                 System.out.println("Você não pode inserir Símbolos no endereço");
                 erro = true;
             } else {
-                pet.setEndereco(endereco);
+                pet.setEndereco(juntarStrings);
             }
         } while (erro);
 
         do {
-            double idadeDouble = 0.0;
             try {
                 erro = false;
                 System.out.println(perguntas[4]);
-                String idade = input.next();
-                idadeDouble = Double.parseDouble(idade.replace(",", "."));
-                if (idadeDouble > 20) {
+                String idade = input.nextLine();
+                double idadeDouble = Double.parseDouble(idade.replace(",", "."));
+                if (idadeDouble > 240) {
                     throw new IdadeException("Idade Maior que 20 anos");
                 }
+                double idadeEmAnos = idadeDouble / 12;
+                if (idadeDouble < 12) {
+                    idadeEmAnos = Math.floor(idadeEmAnos * 10.0) / 10.0;
+                }
+                pet.setIdade(idadeEmAnos);
             } catch (NumberFormatException e) {
                 System.err.println("Você não pode digita números ou letras aqui");
                 erro = true;
             } catch (IdadeException e) {
                 System.err.println(e.getMessage());
             }
-            double idadeEmAnos = idadeDouble / 12;
-            if (idadeDouble < 12) {
-                idadeEmAnos = Math.floor(idadeEmAnos * 10.0) / 10.0;
-            }
-            pet.setIdade(idadeEmAnos);
         } while (erro);
 
         do {
             try {
                 erro = false;
                 System.out.println(perguntas[5]);
-                String peso = input.next();
+                String peso = input.nextLine();
                 double pesoDouble = Double.parseDouble(peso.replace(",", "."));
                 if (pesoDouble > 60 || pesoDouble < 0.5) {
                     throw new PesoException("O peso deve estar entre 0.5kg e 60kg.");
                 }
+                pet.setPeso(pesoDouble);
             } catch (NumberFormatException e) {
                 System.err.println("Formato inválido. Digite um número válido para o peso.");
                 erro = true;
@@ -133,5 +137,6 @@ public class CadastrarPet {
             }
             pet.setRace(rece);
         }while (erro);
+        ArmazenarCadastro.armazenarCadastro(pet);
     }
 }

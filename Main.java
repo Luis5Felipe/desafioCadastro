@@ -1,3 +1,5 @@
+import Services.CadastrarPet;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -27,6 +29,7 @@ public class Main {
         }
         switch (opcao){
             case 1:
+                CadastrarPet.ArmazenarDados();
                 break;
         }
         input.close();
