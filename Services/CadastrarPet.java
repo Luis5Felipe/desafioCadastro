@@ -34,6 +34,7 @@ public class CadastrarPet {
         } while (erro);
 
         do {
+            erro = false;
             System.out.println(perguntas[1]);
             String tipoAnimal = input.nextLine();
             if (TipoAnimal.CACHORRO.getTipo().equalsIgnoreCase(tipoAnimal)) {
@@ -47,6 +48,7 @@ public class CadastrarPet {
         } while (erro);
 
         do {
+            erro = false;
             System.out.println(perguntas[2]);
             String TipoSexoAnimal = input.nextLine();
             if (SexoPet.MACHO.getSexoPet().equalsIgnoreCase(TipoSexoAnimal)) {
@@ -60,6 +62,7 @@ public class CadastrarPet {
         } while (erro);
 
         do {
+            erro = false;
             final String naoInformado = "NÃO INFORMADO";
             String regex = ".*[^0-9a-zA-ZÀ-ÿ\\s,].*";
             String[] endereco = new String[3];
@@ -91,14 +94,16 @@ public class CadastrarPet {
                 System.out.println(perguntas[4]);
                 String idade = input.nextLine();
                 double idadeDouble = Double.parseDouble(idade.replace(",", "."));
-                if (idadeDouble > 240) {
+                if (idadeDouble > 20) {
                     throw new IdadeException("Idade Maior que 20 anos");
                 }
-                double idadeEmAnos = idadeDouble / 12;
                 if (idadeDouble < 12) {
+                    double idadeEmAnos = idadeDouble / 12;
                     idadeEmAnos = Math.floor(idadeEmAnos * 10.0) / 10.0;
+                    pet.setIdade(idadeEmAnos);
+                }else {
+                    pet.setIdade(idadeDouble);
                 }
-                pet.setIdade(idadeEmAnos);
             } catch (NumberFormatException e) {
                 System.err.println("Você não pode digita números ou letras aqui");
                 erro = true;

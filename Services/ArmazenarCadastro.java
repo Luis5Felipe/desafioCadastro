@@ -19,10 +19,8 @@ public class ArmazenarCadastro {
                 .replace("-", "")
                 .replace(":", "");
 
-        String nome = pet.getNome();
-
-        String arquivo = data + "-" + nome.toUpperCase().trim() + ".txt";
-
+        String arquivo = data + "-" + pet.getNome().replace(" ","").toUpperCase() + ".txt";
+        System.out.println(arquivo);
         File file = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados\\" + arquivo);
 
         try (FileWriter fileWriter = new FileWriter(file);
