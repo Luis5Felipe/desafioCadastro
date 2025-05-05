@@ -33,6 +33,9 @@ public class MenuDeBusca {
             case 2:
                 BuscarPet.buscarPetSexo();
                 break;
+            case 3:
+                BuscarPet.buscarPetIdade();
+                break;
         }
 
 

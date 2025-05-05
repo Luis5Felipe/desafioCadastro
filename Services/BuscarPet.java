@@ -13,8 +13,11 @@ import java.util.Scanner;
 public class BuscarPet {
     private static final Scanner INPUT = new Scanner(System.in);
     private static final File pasta = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados");
-    private static int contador = 0;
     private static final File[] arquivos = pasta.listFiles();
+    private static boolean encontrado = false;
+    private static int contador = 0;
+
+
 
     private static void imprimirArquivo(File arquivo) {
         String linha;
@@ -33,31 +36,78 @@ public class BuscarPet {
         }
     }
 
+
+
+
+
+
     public static void buscarPetSexo() {
         String tipo;
-        while (true) {
-            System.out.println("Tipo de Animal");
-            tipo = INPUT.nextLine();
-            if (TipoAnimal.CACHORRO.getTipo().equalsIgnoreCase(tipo) || TipoAnimal.GATO.getTipo().equalsIgnoreCase(tipo)) {
-                System.out.println("Lista de possiveis resultados");
-                if (arquivos != null){
-                    for (File arquivo : arquivos) {
-                        imprimirArquivo(arquivo);
-                    }
-                    break;
+        System.out.println("Tipo de Animal");
+        tipo = INPUT.nextLine();
+        if (TipoAnimal.CACHORRO.getTipo().equalsIgnoreCase(tipo) || TipoAnimal.GATO.getTipo().equalsIgnoreCase(tipo)) {
+            System.out.println("Lista de possiveis resultados");
+            if (arquivos != null) {
+                for (File arquivo : arquivos) {
+                    imprimirArquivo(arquivo);
                 }
-            } else {
-                System.out.println("Tipo incorreto. Só é aceito cachorro ou gato.");
             }
+        } else {
+            System.out.println("Tipo incorreto. Só é aceito cachorro ou gato.");
         }
     }
 
-    public static  void buscarPetIdade(){
+    public static void buscarPetIdade() {
+        boolean erro;
+        double idadeDouble = 0;
+        int cont = 0;
+        do {
+            erro = false;
+            System.out.println("Idade do Animal");
+            try {
+                String idade = INPUT.nextLine();
+                idadeDouble = Double.parseDouble(idade);
+            } catch (NumberFormatException e) {
+                System.err.println("Entrada inválida! Digite um número válido para a idade.");
+                erro = true;
+            }
+        } while (erro);
+        if (arquivos != null) {
+            for (File arquivo : arquivos) {
+                try (FileReader fileReader = new FileReader(arquivo);
+                     BufferedReader bufferedReader = new BufferedReader(fileReader)) {
 
+                    String linha;
+                    while ((linha = bufferedReader.readLine()) != null) {
+
+                        if ((!linha.startsWith(" - "))){
+                            cont++;
+                        }
+                        if (cont == 5) {
+                            try {
+                                String idadeStr = linha.replace("anos", "").replace("5 - ","").trim();
+                                double idadeLida = Double.parseDouble(idadeStr);
+                                if (idadeLida == idadeDouble) {
+                                    imprimirArquivo(arquivo);
+                                    encontrado = true;
+                                    break;
+                                }
+                            } catch (NumberFormatException e) {
+                                System.err.println("Existe idade mal formatada no arquivo: " + linha);
+                                break;
+                            }
+                        }
+                    }
+                    cont = 0;
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        if (!encontrado){
+            System.out.println("Nenhum Animal Encontrado");
+        }
     }
-
-
-
 
 
     public static void buscarPetNome() {
@@ -78,7 +128,7 @@ public class BuscarPet {
             }
         }
 
-        boolean encontrado = false;
+
         System.out.println("Lista de possiveis resultados");
         if (pasta.exists() && pasta.isDirectory()) {
             if (arquivos != null) {

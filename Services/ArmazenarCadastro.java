@@ -36,7 +36,7 @@ public class ArmazenarCadastro {
             bufferedWriter.newLine();
             bufferedWriter.write("4 - " + pet.getEndereco());
             bufferedWriter.newLine();
-            bufferedWriter.write("5 - " + pet.getIdade()+"anos");
+            bufferedWriter.write("5 - " + pet.getIdade()+" anos");
             bufferedWriter.newLine();
             bufferedWriter.write("6 - " + pet.getPeso()+"kg");
             bufferedWriter.newLine();
