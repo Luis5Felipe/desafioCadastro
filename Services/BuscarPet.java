@@ -14,15 +14,14 @@ public class BuscarPet {
     private static final Scanner INPUT = new Scanner(System.in);
     private static final File pasta = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados");
     private static int contador = 0;
+    private static final File[] arquivos = pasta.listFiles();
 
     private static void imprimirArquivo(File arquivo) {
         String linha;
-        System.out.println("Lista de possiveis resultados");
         List<String> registros;
         try (FileReader fileReader = new FileReader(arquivo); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             registros = new ArrayList<String>();
             String juntarRegistro = "";
-
             while ((linha = bufferedReader.readLine()) != null) {
                 registros.add(linha.replaceAll("^\\d+\\s*-\\s*", ""));
                 juntarRegistro = String.join(" - ", registros);
@@ -34,6 +33,28 @@ public class BuscarPet {
         }
     }
 
+    public static void buscarPetSexo() {
+        String tipo;
+        while (true) {
+            System.out.println("Tipo de Animal");
+            tipo = INPUT.nextLine();
+            if (TipoAnimal.CACHORRO.getTipo().equalsIgnoreCase(tipo) || TipoAnimal.GATO.getTipo().equalsIgnoreCase(tipo)) {
+                System.out.println("Lista de possiveis resultados");
+                if (arquivos != null){
+                    for (File arquivo : arquivos) {
+                        imprimirArquivo(arquivo);
+                    }
+                    break;
+                }
+            } else {
+                System.out.println("Tipo incorreto. Só é aceito cachorro ou gato.");
+            }
+        }
+    }
+
+    public static  void buscarPetIdade(){
+
+    }
 
 
 
@@ -58,8 +79,8 @@ public class BuscarPet {
         }
 
         boolean encontrado = false;
+        System.out.println("Lista de possiveis resultados");
         if (pasta.exists() && pasta.isDirectory()) {
-            File[] arquivos = pasta.listFiles();
             if (arquivos != null) {
                 for (File arquivo : arquivos) {
                     try (FileReader fileReader = new FileReader(arquivo); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -88,6 +109,7 @@ public class BuscarPet {
                     }
                 }
             }
+
         }
         if (!encontrado) {
             System.out.println("Nenhum animal encontrado com o nome {" + nome + "} e tipo {" + tipo + "}");

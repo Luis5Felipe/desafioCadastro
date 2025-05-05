@@ -9,7 +9,13 @@ public class MenuDeBusca {
         Scanner input = new Scanner(System.in);
         do {
             try {
-                System.out.println("Escolha uma Opção de busca 1- Nome ou sobrenome 2- Sexo 3- Idade 4- Peso  5- Raça 6- Endereço");
+                System.out.println("Escolha uma Opção de busca    ");
+                System.out.println("1- Nome ou sobrenome");
+                System.out.println("2- Sexo");
+                System.out.println("3- Idade");
+                System.out.println("4- Peso");
+                System.out.println("5- Raça");
+                System.out.println("6- Endereço");
                 System.out.println("Busca Dupla 7 Nome ou sobrenome e idade ou 8 - Idade e Peso");
                 erro = false;
                 opcao = input.nextInt();
@@ -23,6 +29,9 @@ public class MenuDeBusca {
         switch (opcao){
             case 1:
                 BuscarPet.buscarPetNome();
+                break;
+            case 2:
+                BuscarPet.buscarPetSexo();
                 break;
         }
 
