@@ -26,7 +26,7 @@ public class MenuDeBusca {
             }
         } while (erro);
 
-        switch (opcao){
+        switch (opcao) {
             case 1:
                 BuscarPet.buscarPetNome();
                 break;
@@ -36,8 +36,16 @@ public class MenuDeBusca {
             case 3:
                 BuscarPet.buscarPetIdade();
                 break;
+            case 4:
+                BuscarPet.buscaPorPeso();
+                break;
+            case 5:
+                BuscarPet.buscaPorRece();
+                break;
+            case 6:
+                BuscarPet.BuscarPetEndereco();
+                break;
         }
-
 
 
     }

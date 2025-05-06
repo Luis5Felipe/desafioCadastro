@@ -27,7 +27,7 @@ public class Main {
                     case 1:
                         CadastrarPet.ArmazenarDados();
                         break;
-                    case 2:
+                    case 5:
                         MenuDeBusca.menu();
                         break;
                     case 6:
