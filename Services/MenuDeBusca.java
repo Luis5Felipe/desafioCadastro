@@ -16,7 +16,8 @@ public class MenuDeBusca {
                 System.out.println("4- Peso");
                 System.out.println("5- Raça");
                 System.out.println("6- Endereço");
-                System.out.println("Busca Dupla 7 Nome ou sobrenome e idade ou 8 - Idade e Peso");
+                System.out.println("7- Nome ou sobrenome e idade  ");
+                System.out.println("8- Idade e Peso");
                 erro = false;
                 opcao = input.nextInt();
             } catch (RuntimeException e) {
@@ -44,6 +45,9 @@ public class MenuDeBusca {
                 break;
             case 6:
                 BuscarPet.BuscarPetEndereco();
+                break;
+            case 7:
+                BuscarPet.PesquisaPorNomeEidade();
                 break;
         }
 

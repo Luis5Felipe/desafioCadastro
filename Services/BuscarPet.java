@@ -340,27 +340,25 @@ public class BuscarPet {
                     try (BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivo))) {
                         String linha;
                         String tipoAnimal = "";
-                        String enderecoLido;
+                        String[] enderecoDividido = endereco.trim().split(",");
                         while ((linha = bufferedReader.readLine()) != null) {
-                            if (!linha.startsWith(" - ")) {
-                                cont++;
-                            }
 
-                            String dados = linha.substring(4).toLowerCase().trim();
                             if (linha.startsWith("2 - ")) {
-                                tipoAnimal = dados;
+                                tipoAnimal = linha.substring(4).trim();
                             }
-                            if (cont == 4 && linha.startsWith("4 - ")) {
-                                enderecoLido = dados;
-
-                                if (tipoAnimal.equals(tipo) && endereco.contains(enderecoLido)) {
-                                    imprimirArquivo(arquivo);
-                                    encontrado = true;
-                                    break;
+                            if (linha.startsWith("4 - ")) {
+                                String enderecoNoArquivo = linha.substring(4).trim().toLowerCase();
+                                for (String parteEndereco : enderecoDividido) {
+                                    if (enderecoNoArquivo.contains(parteEndereco.trim().toLowerCase())) {
+                                        if (tipoAnimal.equalsIgnoreCase(tipo)) {
+                                            imprimirArquivo(arquivo);
+                                            encontrado = true;
+                                        }
+                                        break;
+                                    }
                                 }
                             }
                         }
-                        cont = 0;
                     } catch (IOException e) {
                         System.err.println("Erro ao ler o arquivo: " + arquivo.getName());
                     }
@@ -375,4 +373,79 @@ public class BuscarPet {
             System.out.println("Nenhum Animal Encontrado");
         }
     }
+
+    public static void PesquisaPorNomeEidade() {
+        String tipo;
+        String nome;
+        double idadeDouble = 0;
+        do {
+            erro = false;
+            System.out.println("Digite o nome ou sobrenome ou apenas um deles");
+            nome = INPUT.nextLine().toLowerCase().trim();
+            System.out.println("Tipo de Animal");
+            tipo = INPUT.nextLine().toLowerCase().trim();
+            try {
+                System.out.println("Digite a idade");
+                String idade = INPUT.nextLine();
+                idadeDouble = Double.parseDouble(idade);
+            } catch (NumberFormatException e) {
+                System.err.println("Entrada inválida! Digite um número válido para a idade.");
+                erro = true;
+            }
+            if (nome.matches(regex) || tipo.matches(regex)) {
+                System.out.println("Você não pode Digitar Números ou Símbolos aqui");
+                erro = true;
+            }
+        } while (erro);
+
+        System.out.println("Lista de possiveis resultados");
+
+        if (pasta.exists() && pasta.isDirectory()) {
+            if (arquivos != null) {
+                for (File arquivo : arquivos) {
+                    try (FileReader fileReader = new FileReader(arquivo);
+                         BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+                        String linha;
+                        String[] nomesParaVerificar = nome.split(",");
+                        String nomeDoArquivo = "";
+                        String tipoNoArquivo = "";
+                        double idadeLida = 0;
+                        while ((linha = bufferedReader.readLine()) != null) {
+                            if (linha.startsWith("1 - ")) {
+                                nomeDoArquivo = linha.substring(4).toLowerCase();
+                            } else if (linha.startsWith("2 - ")) {
+                                tipoNoArquivo = linha.substring(4).trim().toLowerCase();
+                            } else if (linha.startsWith("5 - ")) {
+                                try {
+                                    String idadeStr = linha.replace("anos", "").substring(4).trim();
+                                    idadeLida = Double.parseDouble(idadeStr);
+                                    for (String palavra : nomesParaVerificar) {
+                                        if (nomeDoArquivo.contains(palavra.toLowerCase()) && tipoNoArquivo.equals(tipo.toLowerCase()) && idadeDouble == idadeLida) {
+                                            imprimirArquivo(arquivo);
+                                            encontrado = true;
+                                            break;
+                                        }
+                                    }
+                                } catch (NumberFormatException e) {
+                                    System.err.println("Existe idade mal formatada no arquivo: " + arquivo.getName());
+                                }
+                            }
+                        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }else {
+                System.err.println("Não Existe arquivos a ser pesquisado");
+            }
+        } else {
+            System.err.println("Diretório não encontrado");
+        }
+        if (!encontrado) {
+            System.out.println("Nenhum animal encontrado com o nome {" + nome + "} e tipo {" + tipo + "}" + "{" + idadeDouble + "}");
+        }
+    }
+
+
+
 }
