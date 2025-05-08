@@ -313,7 +313,7 @@ public class BuscarPet {
             System.err.println("Diretório não encontrado");
         }
         if (!encontrado) {
-            System.out.println("Nenhum Animal Encontrado");
+            System.out.println("Nenhum animal encontrado com a raça {" + rece + "} e  tipo {" + tipo + "}");
         }
     }
 
@@ -370,7 +370,7 @@ public class BuscarPet {
             System.err.println("Diretório não encontrado");
         }
         if (!encontrado) {
-            System.out.println("Nenhum Animal Encontrado");
+            System.out.println("Nenhum animal encontrado com a Endereço {" + endereco + "} tipo {" + tipo + "}");
         }
     }
 
@@ -435,7 +435,7 @@ public class BuscarPet {
                         throw new RuntimeException(e);
                     }
                 }
-            }else {
+            } else {
                 System.err.println("Não Existe arquivos a ser pesquisado");
             }
         } else {
@@ -446,6 +446,71 @@ public class BuscarPet {
         }
     }
 
+    public static void buscaPorIdadeEpeso() {
+        double peso = 0;
+        double idade = 0;
+        String tipo;
+        do {
+            erro = false;
+            System.out.println("Digite o tipo do Animal");
+            tipo = INPUT.nextLine().toLowerCase();
+            try {
+                System.out.println("Digite o peso do Animal");
+                peso = INPUT.nextDouble();
+                System.out.println("Digite a Idade do Animal");
+                idade = INPUT.nextDouble();
+                if (tipo.matches(regex)){
+                    System.err.println("Você não pode Digitar Símbolos aqui");
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("Entrada inválida! Digite um número válido para o peso.");
+                erro = true;
+            }
+        } while (erro);
+        if (pasta.exists() && pasta.isDirectory()) {
+            if (arquivos != null) {
+                for (File arquivo : arquivos) {
+                    try (FileReader fileReader = new FileReader(arquivo);
+                         BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+                        String linha;
+                        String tipoAnimal = "";
+                        double pesoLido = 0;
+                        double idadeLido = 0;
+                        while ((linha = bufferedReader.readLine()) != null) {
+                            try {
+                                if (linha.startsWith("2 - ")){
+                                    tipoAnimal = linha.substring(4).toLowerCase().trim();
+                                } else if (linha.startsWith("5 - ")) {
+                                    String idadeStr = linha.replace("anos", "").replace("5 - ", "").trim();;
+                                    idadeLido = Double.parseDouble(idadeStr);
+                                } else if (linha.startsWith("6 - ")) {
+                                    String pesoStr = linha.replace("kg", "").replace("6 - ", "").trim();
+                                    pesoLido = Double.parseDouble(pesoStr);
+                                }
+                                if (pesoLido == peso && idade == idadeLido && tipo.equals(tipoAnimal)) {
+                                    imprimirArquivo(arquivo);
+                                    encontrado = true;
+                                    break;
+                                }
+                            } catch (NumberFormatException e) {
+                                System.err.println("Erro ao converter número em: " + linha + " no arquivo: " + arquivo.getName());
+                                break;
+                            }
 
+                        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            } else {
+                System.err.println("Não Existe arquivos a ser pesquisado");
+            }
+        } else {
+            System.err.println("Diretório não encontrado");
+        }
+        if (!encontrado) {
+            System.out.println("Nenhum animal encontrado com a idade {" + idade + "} e peso {" + peso + "} tipo {" + tipo + "}");
+        }
+    }
 
 }

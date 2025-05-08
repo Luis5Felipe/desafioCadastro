@@ -49,6 +49,9 @@ public class MenuDeBusca {
             case 7:
                 BuscarPet.PesquisaPorNomeEidade();
                 break;
+            case 8:
+                BuscarPet.buscaPorIdadeEpeso();
+                break;
         }
 
 
