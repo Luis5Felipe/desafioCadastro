@@ -4,41 +4,25 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
+
+import static Services.AlteraCadastro.ArmazenarArquivos;
+import static Services.AlteraCadastro.arquivosArmazenados;
+import static Services.imprimirArquivos.imprimirArquivo;
 
 public class BuscarPet {
     private static final Scanner INPUT = new Scanner(System.in);
     private static final File pasta = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados");
     private static final File[] arquivos = pasta.listFiles();
     private static boolean encontrado = false;
-    private static int contador = 0;
     private static boolean erro = false;
     private static final String regex = ".*[^a-zA-ZÀ-ÿ\\\\s].*";
-
-
-    private static void imprimirArquivo(File arquivo) {
-        String linha;
-        List<String> registros;
-        try (FileReader fileReader = new FileReader(arquivo); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-            registros = new ArrayList<>();
-            String juntarRegistro = "";
-            while ((linha = bufferedReader.readLine()) != null) {
-                registros.add(linha.replaceAll("^\\d+\\s*-\\s*", ""));
-                juntarRegistro = String.join(" - ", registros);
-            }
-            contador++;
-            System.out.println(contador + ". " + juntarRegistro);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public static void buscarPetNome() {
         String tipo;
         String nome;
+        arquivosArmazenados.clear();
+
         do {
             erro = false;
             System.out.println("Digite o nome ou sobrenome ou apenas um deles");
@@ -78,6 +62,7 @@ public class BuscarPet {
 
                                             if (tipoNoArquivo.equals(tipo.toLowerCase())) {
                                                 imprimirArquivo(arquivo);
+                                                ArmazenarArquivos(arquivo);
                                                 encontrado = true;
                                             }
                                         }

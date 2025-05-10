@@ -1,4 +1,4 @@
-import Services.BuscarPet;
+import Services.AlteraCadastro;
 import Services.CadastrarPet;
 import Services.MenuDeBusca;
 
@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        int opcao;
+        int opcao = 0;
         while (true) {
             try {
                 System.out.println();
@@ -20,23 +20,26 @@ public class Main {
                 System.out.println("5 - Listar pets por algum critério (idade, nome, raça)");
                 System.out.println("6 - Sair");
                 opcao = input.nextInt();
-                if (opcao < 1 || opcao > 6) {
-                    System.out.println("Opção inválida você só pode digitar do 1 ao 6");
-                }
-                switch (opcao) {
-                    case 1:
-                        CadastrarPet.ArmazenarDados();
-                        break;
-                    case 5:
-                        MenuDeBusca.menu();
-                        break;
-                    case 6:
-                        input.close();
-                        return;
-                }
             } catch (InputMismatchException e) {
                 System.out.println("Você só pode Digitar Número Inteiros");
                 input.nextLine();
+            }
+
+            switch (opcao) {
+                case 1:
+                    CadastrarPet.ArmazenarDados();
+                    break;
+                case 2:
+                    AlteraCadastro.alterarPet();
+                    break;
+                case 5:
+                    MenuDeBusca.menu();
+                    break;
+                case 6:
+                    input.close();
+                    return;
+                default:
+                    System.err.println("Opção inválida você só pode digitar do 1 ao 6");
             }
         }
     }

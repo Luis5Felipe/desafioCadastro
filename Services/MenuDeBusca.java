@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class MenuDeBusca {
     public static void menu() {
         boolean erro;
-        int opcao = 0;
         Scanner input = new Scanner(System.in);
         do {
+            int opcao = 0;
             try {
                 System.out.println("Escolha uma Opção de busca    ");
                 System.out.println("1- Nome ou sobrenome");
@@ -25,35 +25,35 @@ public class MenuDeBusca {
                 erro = true;
                 input.nextLine();
             }
+            switch (opcao) {
+                case 1:
+                    BuscarPet.buscarPetNome();
+                    break;
+                case 2:
+                    BuscarPet.buscarPetSexo();
+                    break;
+                case 3:
+                    BuscarPet.buscarPetIdade();
+                    break;
+                case 4:
+                    BuscarPet.buscaPorPeso();
+                    break;
+                case 5:
+                    BuscarPet.buscaPorRece();
+                    break;
+                case 6:
+                    BuscarPet.BuscarPetEndereco();
+                    break;
+                case 7:
+                    BuscarPet.PesquisaPorNomeEidade();
+                    break;
+                case 8:
+                    BuscarPet.buscaPorIdadeEpeso();
+                    break;
+                default:
+                    System.err.println("Opção invalida, Tente novamente!");
+                    erro = true;
+            }
         } while (erro);
-
-        switch (opcao) {
-            case 1:
-                BuscarPet.buscarPetNome();
-                break;
-            case 2:
-                BuscarPet.buscarPetSexo();
-                break;
-            case 3:
-                BuscarPet.buscarPetIdade();
-                break;
-            case 4:
-                BuscarPet.buscaPorPeso();
-                break;
-            case 5:
-                BuscarPet.buscaPorRece();
-                break;
-            case 6:
-                BuscarPet.BuscarPetEndereco();
-                break;
-            case 7:
-                BuscarPet.PesquisaPorNomeEidade();
-                break;
-            case 8:
-                BuscarPet.buscaPorIdadeEpeso();
-                break;
-        }
-
-
     }
 }
