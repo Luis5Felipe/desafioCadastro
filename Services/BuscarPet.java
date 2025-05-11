@@ -5,9 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
-
-import static Services.AlteraCadastro.ArmazenarArquivos;
-import static Services.AlteraCadastro.arquivosArmazenados;
+import static Services.ArmazenarDadosEexbirDados.ArmazenarArquivos;
+import static Services.ArmazenarDadosEexbirDados.arquivosArmazenados;
 import static Services.imprimirArquivos.imprimirArquivo;
 
 public class BuscarPet {
@@ -22,7 +21,6 @@ public class BuscarPet {
         String tipo;
         String nome;
         arquivosArmazenados.clear();
-
         do {
             erro = false;
             System.out.println("Digite o nome ou sobrenome ou apenas um deles");
@@ -88,6 +86,7 @@ public class BuscarPet {
         String sexo;
         String tipo;
         int cont = 0;
+        arquivosArmazenados.clear();
         do {
             erro = false;
             ;
@@ -122,6 +121,7 @@ public class BuscarPet {
                                     TipoAnimal.replace("2 - ", "").toLowerCase().equals(tipo)) {
 
                                 imprimirArquivo(arquivo);
+                                ArmazenarArquivos(arquivo);
                                 encontrado = true;
                             }
                         }
@@ -142,6 +142,7 @@ public class BuscarPet {
     public static void buscarPetIdade() {
         double idadeDouble = 0;
         int cont = 0;
+        arquivosArmazenados.clear();
         do {
             erro = false;
             System.out.println("Idade do Animal");
@@ -171,6 +172,7 @@ public class BuscarPet {
                                     double idadeLida = Double.parseDouble(idadeStr);
                                     if (idadeLida == idadeDouble) {
                                         imprimirArquivo(arquivo);
+                                        ArmazenarArquivos(arquivo);
                                         encontrado = true;
                                         break;
                                     }
@@ -197,6 +199,7 @@ public class BuscarPet {
     public static void buscaPorPeso() {
         double peso = 0;
         int cont = 0;
+        arquivosArmazenados.clear();
         do {
             erro = false;
             System.out.println("Digite o peso do Animal");
@@ -225,6 +228,7 @@ public class BuscarPet {
                                     double pesoLido = Double.parseDouble(pesoStr);
                                     if (pesoLido == peso) {
                                         imprimirArquivo(arquivo);
+                                        ArmazenarArquivos(arquivo);
                                         encontrado = true;
                                         break;
                                     }
@@ -252,6 +256,7 @@ public class BuscarPet {
         int cont = 0;
         String rece;
         String tipo;
+        arquivosArmazenados.clear();
         do {
             erro = false;
             System.out.println("Dite a Raça do animal");
@@ -283,6 +288,7 @@ public class BuscarPet {
                                 if (rece.equals(linha.replace("7 - ", "").trim().toLowerCase())
                                         && tipoAnimal.replace("2 - ", "").toLowerCase().equals(tipo)) {
                                     imprimirArquivo(arquivo);
+                                    ArmazenarArquivos(arquivo);
                                     encontrado = true;
                                     break;
                                 }
@@ -305,7 +311,7 @@ public class BuscarPet {
     public static void BuscarPetEndereco() {
         String tipo;
         String endereco;
-        int cont = 0;
+        arquivosArmazenados.clear();
         String regex = ".*[^0-9a-zA-ZÀ-ÿ\\s,].*";
         do {
             erro = false;
@@ -337,6 +343,7 @@ public class BuscarPet {
                                     if (enderecoNoArquivo.contains(parteEndereco.trim().toLowerCase())) {
                                         if (tipoAnimal.equalsIgnoreCase(tipo)) {
                                             imprimirArquivo(arquivo);
+                                            ArmazenarArquivos(arquivo);
                                             encontrado = true;
                                         }
                                         break;
@@ -363,6 +370,7 @@ public class BuscarPet {
         String tipo;
         String nome;
         double idadeDouble = 0;
+        arquivosArmazenados.clear();
         do {
             erro = false;
             System.out.println("Digite o nome ou sobrenome ou apenas um deles");
@@ -407,6 +415,7 @@ public class BuscarPet {
                                     for (String palavra : nomesParaVerificar) {
                                         if (nomeDoArquivo.contains(palavra.toLowerCase()) && tipoNoArquivo.equals(tipo.toLowerCase()) && idadeDouble == idadeLida) {
                                             imprimirArquivo(arquivo);
+                                            ArmazenarArquivos(arquivo);
                                             encontrado = true;
                                             break;
                                         }
@@ -435,6 +444,7 @@ public class BuscarPet {
         double peso = 0;
         double idade = 0;
         String tipo;
+        arquivosArmazenados.clear();
         do {
             erro = false;
             System.out.println("Digite o tipo do Animal");
@@ -474,6 +484,7 @@ public class BuscarPet {
                                 }
                                 if (pesoLido == peso && idade == idadeLido && tipo.equals(tipoAnimal)) {
                                     imprimirArquivo(arquivo);
+                                    ArmazenarArquivos(arquivo);
                                     encontrado = true;
                                     break;
                                 }

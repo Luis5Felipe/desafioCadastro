@@ -1,5 +1,6 @@
 import Services.AlteraCadastro;
 import Services.CadastrarPet;
+import Services.DeletarArquivos;
 import Services.MenuDeBusca;
 
 import java.util.InputMismatchException;
@@ -31,6 +32,11 @@ public class Main {
                     break;
                 case 2:
                     AlteraCadastro.alterarPet();
+                    break;
+                case 3:
+                    DeletarArquivos.DeletarArquivo();
+                    break;
+                case 4:
                     break;
                 case 5:
                     MenuDeBusca.menu();

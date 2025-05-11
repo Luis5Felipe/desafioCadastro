@@ -5,43 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class AlteraCadastro {
-    protected static List<File> arquivosArmazenados = new ArrayList<>();
 
-    public static void ArmazenarArquivos(File arquivos) {
-        arquivosArmazenados.add(arquivos);
-    }
+public class AlteraCadastro {
 
     public static void alterarPet() {
         Scanner input = new Scanner(System.in);
-        if (arquivosArmazenados.isEmpty()) {
-            System.out.println("Você precisa Iniciar uma Busca Primeiro Antes de altera");
-            MenuDeBusca.menu();
-        }
-        System.out.println("Lista de arquivos que podem ser Alterados");
-
-        for (int index = 0; index < arquivosArmazenados.size(); index++) {
-            System.out.println((index + 1) + " - " + arquivosArmazenados.get(index).getName());
-        }
-        boolean erro;
-        int id = 0;
-        do {
-            erro = false;
-            try {
-                System.out.println("Digite o ID do arquivo");
-                id = input.nextInt();
-                input.nextLine();
-                if (id <= 0 || id > arquivosArmazenados.size()) {
-                    System.err.println("Você Digitou um ID que não existe, Faça o Busca novamente!");
-                    MenuDeBusca.menu();
-                }
-            } catch (NumberFormatException e) {
-                System.err.println("Não são aceitos números ou Símbolos aqui!");
-                erro = true;
-            }
-        } while (erro);
-
-        File arquivo = arquivosArmazenados.get(id - 1);
+        int id = ArmazenarDadosEexbirDados.ExibirDados();
+        File arquivo = ArmazenarDadosEexbirDados.getArquivosArmazenados().get(id - 1);
         List<String> novasLinhas = new ArrayList<>();
 
         try (FileReader fileReader = new FileReader(arquivo);
