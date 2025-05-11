@@ -1,7 +1,4 @@
-import Services.AlteraCadastro;
-import Services.CadastrarPet;
-import Services.DeletarArquivos;
-import Services.MenuDeBusca;
+import Services.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -37,6 +34,7 @@ public class Main {
                     DeletarArquivos.DeletarArquivo();
                     break;
                 case 4:
+                    ImprimirArquivos.imprimirArquivo();
                     break;
                 case 5:
                     MenuDeBusca.menu();

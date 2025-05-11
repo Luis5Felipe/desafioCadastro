@@ -7,8 +7,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class imprimirArquivos {
+public class ImprimirArquivos {
     private static int contador = 0;
+
+    public static void imprimirArquivo() {
+        File arquivos = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados");
+        File[] arquivo = arquivos.listFiles();
+        assert arquivo != null;
+        for (File arq : arquivo){
+            imprimirArquivo(arq);
+        }
+    }
+
     public static void imprimirArquivo(File arquivo) {
         String linha;
         List<String> registros  = new ArrayList<>();
@@ -24,4 +34,6 @@ public class imprimirArquivos {
             throw new RuntimeException(e);
         }
     }
+
+
 }

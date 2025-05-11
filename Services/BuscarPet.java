@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import static Services.ArmazenarDadosEexbirDados.ArmazenarArquivos;
 import static Services.ArmazenarDadosEexbirDados.arquivosArmazenados;
-import static Services.imprimirArquivos.imprimirArquivo;
+import static Services.ImprimirArquivos.imprimirArquivo;
 
 public class BuscarPet {
     private static final Scanner INPUT = new Scanner(System.in);
