@@ -155,7 +155,7 @@ public class BuscarPet {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
                 String tipoAnimal = "";
-                String idadeStr = "";
+                String idadeStr;
                 while ((linha = bufferedReader.readLine()) != null) {
                     if (linha.startsWith("2 - ")) {
                         tipoAnimal = linha.substring(4).toLowerCase();
@@ -186,59 +186,53 @@ public class BuscarPet {
 
     public static void buscaPorPeso() {
         double peso = 0;
-        int cont = 0;
         arquivosArmazenados.clear();
         do {
             erro = false;
-            System.out.println("Digite o peso do Animal");
+            System.out.println("Digite o tipo do animal");
+            tipo = INPUT.nextLine();
             try {
+                System.out.println("Digite o peso do Animal");
                 peso = INPUT.nextDouble();
             } catch (NumberFormatException e) {
                 System.err.println("Entrada inválida! Digite um número válido para o peso.");
                 erro = true;
             }
         } while (erro);
-        if (pasta.exists() && pasta.isDirectory()) {
-            if (arquivos != null) {
-                for (File arquivo : arquivos) {
-                    try (FileReader fileReader = new FileReader(arquivo);
-                         BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+        List<File> arquivos = verificarArquivos();
+        for (File arquivo : arquivos) {
+            try (FileReader fileReader = new FileReader(arquivo);
+                 BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+                String tipoAnimal = "";
+                while ((linha = bufferedReader.readLine()) != null) {
 
-                        String linha;
-                        while ((linha = bufferedReader.readLine()) != null) {
-
-                            if ((!linha.startsWith(" - "))) {
-                                cont++;
+                    if (linha.startsWith("2 - ")) {
+                        tipoAnimal = linha.substring(4).toLowerCase();
+                    } else if (linha.startsWith("6 - ")) {
+                        String pesoStr = linha.replace("kg", "").replace("6 - ", "").trim();
+                        try {
+                            double pesoLido = Double.parseDouble(pesoStr);
+                            if (pesoLido == peso && tipoAnimal.equals(tipo)){
+                                imprimirArquivo(arquivo);
+                                ArmazenarArquivos(arquivo);
+                                encontrado = true;
+                                break;
                             }
-                            if (cont == 6) {
-                                try {
-                                    String pesoStr = linha.replace("kg", "").replace("6 - ", "").trim();
-                                    double pesoLido = Double.parseDouble(pesoStr);
-                                    if (pesoLido == peso) {
-                                        imprimirArquivo(arquivo);
-                                        ArmazenarArquivos(arquivo);
-                                        encontrado = true;
-                                        break;
-                                    }
-                                } catch (NumberFormatException e) {
-                                    System.err.println("Existe peso mal formatada no arquivo: " + linha);
-                                    break;
-                                }
-                            }
+                        } catch (NumberFormatException e) {
+                            System.err.println("Existe peso mal formatada no arquivo: " + linha);
+                            break;
                         }
-                        cont = 0;
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
                     }
                 }
-            } else {
-                System.err.println("Diretório não encontrado");
-            }
-            if (!encontrado) {
-                System.out.println("Nenhum Animal Encontrado");
+            } catch (IOException e) {
+                throw new RuntimeException("Falha ao tentar Ler o arquivo!!" + e.getMessage());
             }
         }
+        if (!encontrado) {
+            System.out.println("Nenhum Animal Encontrado");
+        }
     }
+
 
     public static void buscaPorRece() {
         int cont = 0;
@@ -284,7 +278,7 @@ public class BuscarPet {
                         }
                         cont = 0;
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        throw new RuntimeException("Falha ao tentar Ler o arquivo!!" + e.getMessage());
                     }
                 }
             }
@@ -390,7 +384,7 @@ public class BuscarPet {
                         String[] nomesParaVerificar = nome.split(",");
                         String nomeDoArquivo = "";
                         String tipoNoArquivo = "";
-                        double idadeLida = 0;
+                        double idadeLida;
                         while ((linha = bufferedReader.readLine()) != null) {
                             if (linha.startsWith("1 - ")) {
                                 nomeDoArquivo = linha.substring(4).toLowerCase();
@@ -465,7 +459,6 @@ public class BuscarPet {
                                     tipoAnimal = linha.substring(4).toLowerCase().trim();
                                 } else if (linha.startsWith("5 - ")) {
                                     String idadeStr = linha.replace("anos", "").replace("5 - ", "").trim();
-                                    ;
                                     idadeLido = Double.parseDouble(idadeStr);
                                 } else if (linha.startsWith("6 - ")) {
                                     String pesoStr = linha.replace("kg", "").replace("6 - ", "").trim();
