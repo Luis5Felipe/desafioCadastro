@@ -40,7 +40,6 @@ public class BuscarPet {
         return lista;
     }
 
-
     public static void buscarPetNome() {
         String nome;
         arquivosArmazenados.clear();
@@ -82,7 +81,7 @@ public class BuscarPet {
                     }
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Falha ao tentar Ler o arquivo!!" + e.getMessage());
             }
         }
         if (!encontrado) {
@@ -92,57 +91,46 @@ public class BuscarPet {
 
     public static void buscarPetSexo() {
         String sexo;
-        int cont = 0;
         arquivosArmazenados.clear();
         do {
             erro = false;
-            ;
             System.out.println("Sexo do Animal");
-            sexo = INPUT.nextLine().toLowerCase();
+            sexo = INPUT.nextLine().toLowerCase().trim();
             System.out.println("Tipo Do Animal");
-            tipo = INPUT.nextLine().toLowerCase();
+            tipo = INPUT.nextLine().toLowerCase().trim();
             System.out.println("Lista de possiveis resultados");
             if (sexo.matches(regex) || tipo.matches(regex)) {
                 System.out.println("Você não pode Digitar Números ou Símbolos aqui");
                 erro = true;
             }
         } while (erro);
-
-        if (pasta.exists() && pasta.isDirectory()) {
-            if (arquivos != null) {
-                for (File arquivo : arquivos) {
-                    try (FileReader fileReader = new FileReader(arquivo);
-                         BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-
-                        String linha;
-                        String TipoAnimal = "";
-
-                        while ((linha = bufferedReader.readLine()) != null) {
-                            if (!linha.startsWith(" - ")) {
-                                cont++;
-                            }
-                            if (linha.startsWith("2 - ")) {
-                                TipoAnimal = linha;
-                            }
-                            if (cont == 3 && linha.replace("3 - ", "").toLowerCase().equals(sexo) &&
-                                    TipoAnimal.replace("2 - ", "").toLowerCase().equals(tipo)) {
-
-                                imprimirArquivo(arquivo);
-                                ArmazenarArquivos(arquivo);
-                                encontrado = true;
-                            }
-                        }
-                    } catch (Exception e) {
-                        System.err.println("Falha ao tentar Ler o arquivo!!");
+        List<File> arquivos = verificarArquivos();
+        for (File arquivo : arquivos) {
+            try (FileReader fileReader = new FileReader(arquivo);
+                 BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+                String linha;
+                String tipoAnimal = "";
+                String sexoAnimal = "";
+                encontrado = false;
+                while ((linha = bufferedReader.readLine()) != null && !encontrado) {
+                    if (linha.startsWith("2 - ")) {
+                        tipoAnimal = linha.substring(4).toLowerCase();
                     }
-                    cont = 0;
+                    if (linha.startsWith("3 - ")) {
+                        sexoAnimal = linha.substring(4).toLowerCase();
+                    }
+                    if (sexoAnimal.equals(sexo) && tipoAnimal.equals(tipo)) {
+                        imprimirArquivo(arquivo);
+                        ArmazenarArquivos(arquivo);
+                        encontrado = true;
+                    }
                 }
+            } catch (Exception e) {
+                throw new RuntimeException("Falha ao tentar Ler o arquivo!!" + e.getMessage());
             }
-        } else {
-            System.err.println("Diretório não encontrado");
         }
         if (!encontrado) {
-            System.out.println("Nenhum animal encontrado com o nome {" + sexo + "} e tipo {" + tipo + "}");
+            System.err.println("Nenhum animal encontrado com o nome {" + sexo + "} e tipo {" + tipo + "}");
         }
     }
 
