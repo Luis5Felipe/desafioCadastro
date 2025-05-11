@@ -15,7 +15,6 @@ import static Services.ImprimirArquivos.imprimirArquivo;
 public class BuscarPet {
     private static final Scanner INPUT = new Scanner(System.in);
     private static final File pasta = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados");
-    private static final File[] arquivos = pasta.listFiles();
     private static boolean encontrado = false;
     private static boolean erro = false;
     private static final String regex = ".*[^a-zA-ZÀ-ÿ\\\\s].*";
