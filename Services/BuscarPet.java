@@ -17,7 +17,7 @@ public class BuscarPet {
     private static final File pasta = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados");
     private static boolean encontrado = false;
     private static boolean erro = false;
-    private static final String regex = ".*[^a-zA-ZÀ-ÿ\\\\s].*";
+    private static final String regex = ".*[^a-zA-ZÀ-ÿ\\s].*";
     private static String tipo;
     private static String linha;
 

@@ -20,14 +20,10 @@ public class ArmazenarCadastro {
                 .replace(":", "");
 
         String arquivo = data + "-" + pet.getNome().replace(" ","").toUpperCase() + ".txt";
-        System.out.println(arquivo);
         File file = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados\\" + arquivo);
 
         try (FileWriter fileWriter = new FileWriter(file);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            if (file.createNewFile()) {
-                System.out.println("Pet Cadastrado Com Sucesso!!!");
-            }
             bufferedWriter.write("1 - " + pet.getNome());
             bufferedWriter.newLine();
             bufferedWriter.write("2 - " + pet.getTipoAnimal());
@@ -42,9 +38,12 @@ public class ArmazenarCadastro {
             bufferedWriter.newLine();
             bufferedWriter.write("7 - " + pet.getRace());
             bufferedWriter.newLine();
+            System.out.println("Pet Cadastrado Com Sucesso!");
+            System.out.println("Nome do arquivo: "+arquivo);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Erro ao criar o arquivo: "+ e.getMessage());
         }
+
     }
 
 }
