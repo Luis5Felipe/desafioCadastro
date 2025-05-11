@@ -109,19 +109,16 @@ public class BuscarPet {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
                 String tipoAnimal = "";
-                String sexoAnimal = "";
                 encontrado = false;
-                while ((linha = bufferedReader.readLine()) != null && !encontrado) {
+                while ((linha = bufferedReader.readLine()) != null) {
                     if (linha.startsWith("2 - ")) {
                         tipoAnimal = linha.substring(4).toLowerCase();
-                    }
-                    if (linha.startsWith("3 - ")) {
-                        sexoAnimal = linha.substring(4).toLowerCase();
-                    }
-                    if (sexoAnimal.equals(sexo) && tipoAnimal.equals(tipo)) {
-                        imprimirArquivo(arquivo);
-                        ArmazenarArquivos(arquivo);
-                        encontrado = true;
+                    } else if (linha.startsWith("3 - ")) {
+                        if (sexo.equals(linha.substring(4).toLowerCase()) && tipoAnimal.equals(tipo)) {
+                            imprimirArquivo(arquivo);
+                            ArmazenarArquivos(arquivo);
+                            encontrado = true;
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -180,7 +177,7 @@ public class BuscarPet {
             }
         }
         if (!encontrado) {
-            System.out.println("Nenhum Animal Encontrado");
+            System.out.println("Nenhum animal encontrado com essa {" + idadeDouble + "} e  tipo {" + tipo + "}");
         }
     }
 
@@ -212,7 +209,7 @@ public class BuscarPet {
                         String pesoStr = linha.replace("kg", "").replace("6 - ", "").trim();
                         try {
                             double pesoLido = Double.parseDouble(pesoStr);
-                            if (pesoLido == peso && tipoAnimal.equals(tipo)){
+                            if (pesoLido == peso && tipoAnimal.equals(tipo)) {
                                 imprimirArquivo(arquivo);
                                 ArmazenarArquivos(arquivo);
                                 encontrado = true;
@@ -229,15 +226,12 @@ public class BuscarPet {
             }
         }
         if (!encontrado) {
-            System.out.println("Nenhum Animal Encontrado");
+            System.out.println("Nenhum animal encontrado com esse {" + peso + "} e  tipo {" + tipo + "}");
         }
     }
 
-
     public static void buscaPorRece() {
-        int cont = 0;
         String rece;
-        String tipo;
         arquivosArmazenados.clear();
         do {
             erro = false;
@@ -250,48 +244,34 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        if (pasta.exists() && pasta.isDirectory()) {
-            if (arquivos != null) {
-                for (File arquivo : arquivos) {
-                    try (FileReader fileReader = new FileReader(arquivo);
-                         BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-
-                        String linha;
-                        String tipoAnimal = "";
-                        while ((linha = bufferedReader.readLine()) != null) {
-
-                            if (!linha.startsWith(" - ")) {
-                                cont++;
-                            }
-                            if (linha.startsWith("2 - ")) {
-                                tipoAnimal = linha;
-                            }
-                            if (cont == 7) {
-                                if (rece.equals(linha.replace("7 - ", "").trim().toLowerCase())
-                                        && tipoAnimal.replace("2 - ", "").toLowerCase().equals(tipo)) {
-                                    imprimirArquivo(arquivo);
-                                    ArmazenarArquivos(arquivo);
-                                    encontrado = true;
-                                    break;
-                                }
-                            }
+        List<File> arquivos = verificarArquivos();
+        for (File arquivo : arquivos) {
+            try (FileReader fileReader = new FileReader(arquivo);
+                 BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+                String linha;
+                String tipoAnimal = "";
+                while ((linha = bufferedReader.readLine()) != null) {
+                    if (linha.startsWith("2 - ")) {
+                        tipoAnimal = linha.substring(4).toLowerCase();
+                    } else if (linha.startsWith("7 - ")) {
+                        if (rece.equals(linha.substring(4).toLowerCase()) && tipoAnimal.equals(tipo)) {
+                            imprimirArquivo(arquivo);
+                            ArmazenarArquivos(arquivo);
+                            encontrado = true;
+                            break;
                         }
-                        cont = 0;
-                    } catch (IOException e) {
-                        throw new RuntimeException("Falha ao tentar Ler o arquivo!!" + e.getMessage());
                     }
                 }
+            } catch (IOException e) {
+                throw new RuntimeException("Falha ao tentar Ler o arquivo!!" + e.getMessage());
             }
-        } else {
-            System.err.println("Diretório não encontrado");
-        }
-        if (!encontrado) {
-            System.out.println("Nenhum animal encontrado com a raça {" + rece + "} e  tipo {" + tipo + "}");
+            if (!encontrado) {
+                System.out.println("Nenhum animal encontrado com a raça {" + rece + "} e  tipo {" + tipo + "}");
+            }
         }
     }
 
     public static void BuscarPetEndereco() {
-        String tipo;
         String endereco;
         arquivosArmazenados.clear();
         String regex = ".*[^0-9a-zA-ZÀ-ÿ\\s,].*";
@@ -306,42 +286,32 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-
-        if (pasta.exists() && pasta.isDirectory()) {
-            if (arquivos != null) {
-                for (File arquivo : arquivos) {
-                    try (BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivo))) {
-                        String linha;
-                        String tipoAnimal = "";
-                        String[] enderecoDividido = endereco.trim().split(",");
-                        while ((linha = bufferedReader.readLine()) != null) {
-
-                            if (linha.startsWith("2 - ")) {
-                                tipoAnimal = linha.substring(4).trim();
-                            }
-                            if (linha.startsWith("4 - ")) {
-                                String enderecoNoArquivo = linha.substring(4).trim().toLowerCase();
-                                for (String parteEndereco : enderecoDividido) {
-                                    if (enderecoNoArquivo.contains(parteEndereco.trim().toLowerCase())) {
-                                        if (tipoAnimal.equalsIgnoreCase(tipo)) {
-                                            imprimirArquivo(arquivo);
-                                            ArmazenarArquivos(arquivo);
-                                            encontrado = true;
-                                        }
-                                        break;
-                                    }
+        List<File> arquivos = verificarArquivos();
+        for (File arquivo : arquivos) {
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivo))) {
+                String tipoAnimal = "";
+                String linha;
+                String[] enderecoDividido = endereco.trim().toLowerCase().split(",");
+                while ((linha = bufferedReader.readLine()) != null) {
+                    if (linha.startsWith("2 - ")) {
+                        tipoAnimal = linha.substring(4).trim();
+                    }else if (linha.startsWith("4 - ")) {
+                        String enderecoNoArquivo = linha.substring(4).trim().toLowerCase();
+                        for (String parteEndereco : enderecoDividido) {
+                            if (enderecoNoArquivo.contains(parteEndereco.trim().toLowerCase())) {
+                                if (tipoAnimal.equalsIgnoreCase(tipo)) {
+                                    imprimirArquivo(arquivo);
+                                    ArmazenarArquivos(arquivo);
+                                    encontrado = true;
                                 }
+                                break;
                             }
                         }
-                    } catch (IOException e) {
-                        System.err.println("Erro ao ler o arquivo: " + arquivo.getName());
                     }
                 }
-            } else {
-                System.err.println("Não Existe arquivos a ser pesquisado");
+            } catch (IOException e) {
+                throw new RuntimeException("Falha ao tentar Ler o arquivo!!" + e.getMessage());
             }
-        } else {
-            System.err.println("Diretório não encontrado");
         }
         if (!encontrado) {
             System.out.println("Nenhum animal encontrado com a Endereço {" + endereco + "} tipo {" + tipo + "}");
