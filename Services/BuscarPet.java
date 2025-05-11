@@ -295,7 +295,7 @@ public class BuscarPet {
                 while ((linha = bufferedReader.readLine()) != null) {
                     if (linha.startsWith("2 - ")) {
                         tipoAnimal = linha.substring(4).trim();
-                    }else if (linha.startsWith("4 - ")) {
+                    } else if (linha.startsWith("4 - ")) {
                         String enderecoNoArquivo = linha.substring(4).trim().toLowerCase();
                         for (String parteEndereco : enderecoDividido) {
                             if (enderecoNoArquivo.contains(parteEndereco.trim().toLowerCase())) {
@@ -344,48 +344,40 @@ public class BuscarPet {
         } while (erro);
 
         System.out.println("Lista de possiveis resultados");
-
-        if (pasta.exists() && pasta.isDirectory()) {
-            if (arquivos != null) {
-                for (File arquivo : arquivos) {
-                    try (FileReader fileReader = new FileReader(arquivo);
-                         BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-                        String linha;
-                        String[] nomesParaVerificar = nome.split(",");
-                        String nomeDoArquivo = "";
-                        String tipoNoArquivo = "";
-                        double idadeLida;
-                        while ((linha = bufferedReader.readLine()) != null) {
-                            if (linha.startsWith("1 - ")) {
-                                nomeDoArquivo = linha.substring(4).toLowerCase();
-                            } else if (linha.startsWith("2 - ")) {
-                                tipoNoArquivo = linha.substring(4).trim().toLowerCase();
-                            } else if (linha.startsWith("5 - ")) {
-                                try {
-                                    String idadeStr = linha.replace("anos", "").substring(4).trim();
-                                    idadeLida = Double.parseDouble(idadeStr);
-                                    for (String palavra : nomesParaVerificar) {
-                                        if (nomeDoArquivo.contains(palavra.toLowerCase()) && tipoNoArquivo.equals(tipo.toLowerCase()) && idadeDouble == idadeLida) {
-                                            imprimirArquivo(arquivo);
-                                            ArmazenarArquivos(arquivo);
-                                            encontrado = true;
-                                            break;
-                                        }
-                                    }
-                                } catch (NumberFormatException e) {
-                                    System.err.println("Existe idade mal formatada no arquivo: " + arquivo.getName());
+        List<File> arquivos = verificarArquivos();
+        for (File arquivo : arquivos) {
+            try (FileReader fileReader = new FileReader(arquivo);
+                 BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+                String linha;
+                String[] nomesParaVerificar = nome.split(",");
+                String nomeDoArquivo = "";
+                String tipoNoArquivo = "";
+                double idadeLida;
+                while ((linha = bufferedReader.readLine()) != null) {
+                    if (linha.startsWith("1 - ")) {
+                        nomeDoArquivo = linha.substring(4).toLowerCase();
+                    } else if (linha.startsWith("2 - ")) {
+                        tipoNoArquivo = linha.substring(4).trim().toLowerCase();
+                    } else if (linha.startsWith("5 - ")) {
+                        try {
+                            String idadeStr = linha.replace("anos", "").substring(4).trim();
+                            idadeLida = Double.parseDouble(idadeStr);
+                            for (String palavra : nomesParaVerificar) {
+                                if (nomeDoArquivo.contains(palavra.toLowerCase()) && tipoNoArquivo.equals(tipo.toLowerCase()) && idadeDouble == idadeLida) {
+                                    imprimirArquivo(arquivo);
+                                    ArmazenarArquivos(arquivo);
+                                    encontrado = true;
+                                    break;
                                 }
                             }
+                        } catch (NumberFormatException e) {
+                            System.err.println("Existe idade mal formatada no arquivo: " + arquivo.getName());
                         }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
                     }
                 }
-            } else {
-                System.err.println("Não Existe arquivos a ser pesquisado");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        } else {
-            System.err.println("Diretório não encontrado");
         }
         if (!encontrado) {
             System.out.println("Nenhum animal encontrado com o nome {" + nome + "} e tipo {" + tipo + "}" + "{" + idadeDouble + "}");
@@ -414,51 +406,43 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        if (pasta.exists() && pasta.isDirectory()) {
-            if (arquivos != null) {
-                for (File arquivo : arquivos) {
-                    try (FileReader fileReader = new FileReader(arquivo);
-                         BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-                        String linha;
-                        String tipoAnimal = "";
-                        double pesoLido = 0;
-                        double idadeLido = 0;
-                        while ((linha = bufferedReader.readLine()) != null) {
-                            try {
-                                if (linha.startsWith("2 - ")) {
-                                    tipoAnimal = linha.substring(4).toLowerCase().trim();
-                                } else if (linha.startsWith("5 - ")) {
-                                    String idadeStr = linha.replace("anos", "").replace("5 - ", "").trim();
-                                    idadeLido = Double.parseDouble(idadeStr);
-                                } else if (linha.startsWith("6 - ")) {
-                                    String pesoStr = linha.replace("kg", "").replace("6 - ", "").trim();
-                                    pesoLido = Double.parseDouble(pesoStr);
-                                }
-                                if (pesoLido == peso && idade == idadeLido && tipo.equals(tipoAnimal)) {
-                                    imprimirArquivo(arquivo);
-                                    ArmazenarArquivos(arquivo);
-                                    encontrado = true;
-                                    break;
-                                }
-                            } catch (NumberFormatException e) {
-                                System.err.println("Erro ao converter número em: " + linha + " no arquivo: " + arquivo.getName());
-                                break;
-                            }
-
+        List<File> arquivos = verificarArquivos();
+        for (File arquivo : arquivos) {
+            try (FileReader fileReader = new FileReader(arquivo);
+                 BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+                String linha;
+                String tipoAnimal = "";
+                double pesoLido = 0;
+                double idadeLido = 0;
+                while ((linha = bufferedReader.readLine()) != null) {
+                    try {
+                        if (linha.startsWith("2 - ")) {
+                            tipoAnimal = linha.substring(4).toLowerCase().trim();
+                        } else if (linha.startsWith("5 - ")) {
+                            String idadeStr = linha.replace("anos", "").replace("5 - ", "").trim();
+                            idadeLido = Double.parseDouble(idadeStr);
+                        } else if (linha.startsWith("6 - ")) {
+                            String pesoStr = linha.replace("kg", "").replace("6 - ", "").trim();
+                            pesoLido = Double.parseDouble(pesoStr);
                         }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        if (pesoLido == peso && idade == idadeLido && tipo.equals(tipoAnimal)) {
+                            imprimirArquivo(arquivo);
+                            ArmazenarArquivos(arquivo);
+                            encontrado = true;
+                            break;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.err.println("Erro ao converter número em: " + linha + " no arquivo: " + arquivo.getName());
+                        break;
                     }
+
                 }
-            } else {
-                System.err.println("Não Existe arquivos a ser pesquisado");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        } else {
-            System.err.println("Diretório não encontrado");
         }
         if (!encontrado) {
             System.out.println("Nenhum animal encontrado com a idade {" + idade + "} e peso {" + peso + "} tipo {" + tipo + "}");
         }
     }
-
 }
