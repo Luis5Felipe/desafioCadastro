@@ -20,6 +20,7 @@ public class BuscarPet {
     private static boolean erro = false;
     private static final String regex = ".*[^a-zA-ZÀ-ÿ\\\\s].*";
     private static String tipo;
+    private static String linha;
 
     private static List<File> verificarArquivos() {
         List<File> lista = new ArrayList<>();
@@ -60,7 +61,6 @@ public class BuscarPet {
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-                String linha;
                 String[] nomesParaVerificar = nome.split(",");
                 String tipoAnimal = "";
                 String nomeDoArquivo = "";
@@ -108,7 +108,6 @@ public class BuscarPet {
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-                String linha;
                 String tipoAnimal = "";
                 String sexoAnimal = "";
                 encontrado = false;
@@ -136,55 +135,49 @@ public class BuscarPet {
 
     public static void buscarPetIdade() {
         double idadeDouble = 0;
-        int cont = 0;
         arquivosArmazenados.clear();
+        String idade;
         do {
             erro = false;
-            System.out.println("Idade do Animal");
+            System.out.println("Qual é o tipo do animal");
+            tipo = INPUT.nextLine();
             try {
-                String idade = INPUT.nextLine();
+                System.out.println("Idade do Animal");
+                idade = INPUT.nextLine();
                 idadeDouble = Double.parseDouble(idade);
             } catch (NumberFormatException e) {
                 System.err.println("Entrada inválida! Digite um número válido para a idade.");
                 erro = true;
             }
         } while (erro);
-        if (pasta.exists() && pasta.isDirectory()) {
-            if (arquivos != null) {
-                for (File arquivo : arquivos) {
-                    try (FileReader fileReader = new FileReader(arquivo);
-                         BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-
-                        String linha;
-                        while ((linha = bufferedReader.readLine()) != null) {
-
-                            if ((!linha.startsWith(" - "))) {
-                                cont++;
+        List<File> arquivos = verificarArquivos();
+        for (File arquivo : arquivos) {
+            try (FileReader fileReader = new FileReader(arquivo);
+                 BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+                String tipoAnimal = "";
+                String idadeStr = "";
+                while ((linha = bufferedReader.readLine()) != null) {
+                    if (linha.startsWith("2 - ")) {
+                        tipoAnimal = linha.substring(4).toLowerCase();
+                    } else if (linha.startsWith("5 - ")) {
+                        idadeStr = linha.replace("anos", "").replace("5 - ", "").trim();
+                        try {
+                            double idadeLida = Double.parseDouble(idadeStr);
+                            if (idadeLida == idadeDouble && tipoAnimal.equals(tipo)) {
+                                imprimirArquivo(arquivo);
+                                ArmazenarArquivos(arquivo);
+                                encontrado = true;
+                                break;
                             }
-                            if (cont == 5) {
-                                try {
-                                    String idadeStr = linha.replace("anos", "").replace("5 - ", "").trim();
-                                    double idadeLida = Double.parseDouble(idadeStr);
-                                    if (idadeLida == idadeDouble) {
-                                        imprimirArquivo(arquivo);
-                                        ArmazenarArquivos(arquivo);
-                                        encontrado = true;
-                                        break;
-                                    }
-                                } catch (NumberFormatException e) {
-                                    System.err.println("Existe idade mal formatada no arquivo: " + linha);
-                                    break;
-                                }
-                            }
+                        } catch (NumberFormatException e) {
+                            System.err.println("Existe idade mal formatada no arquivo: " + linha);
+                            break;
                         }
-                        cont = 0;
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
                     }
                 }
+            } catch (IOException e) {
+                throw new RuntimeException("Falha ao tentar Ler o arquivo!!" + e.getMessage());
             }
-        } else {
-            System.err.println("Diretório não encontrado");
         }
         if (!encontrado) {
             System.out.println("Nenhum Animal Encontrado");
