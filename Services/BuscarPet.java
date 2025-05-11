@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
 import static Services.ArmazenarDadosEexbirDados.ArmazenarArquivos;
 import static Services.ArmazenarDadosEexbirDados.arquivosArmazenados;
 import static Services.ImprimirArquivos.imprimirArquivo;
@@ -16,9 +19,29 @@ public class BuscarPet {
     private static boolean encontrado = false;
     private static boolean erro = false;
     private static final String regex = ".*[^a-zA-ZÀ-ÿ\\\\s].*";
+    private static String tipo;
+
+    private static List<File> verificarArquivos() {
+        List<File> lista = new ArrayList<>();
+        if (pasta.exists() && pasta.isDirectory()) {
+            File[] arquivos = pasta.listFiles();
+            if (arquivos != null) {
+                for (File arquivo : arquivos) {
+                    if (arquivo.isFile()) {
+                        lista.add(arquivo);
+                    }
+                }
+            } else {
+                System.err.println("Não existe arquivos no Diretório");
+            }
+        } else {
+            System.err.println("Diretório não encontrado");
+        }
+        return lista;
+    }
+
 
     public static void buscarPetNome() {
-        String tipo;
         String nome;
         arquivosArmazenados.clear();
         do {
@@ -34,48 +57,33 @@ public class BuscarPet {
         } while (erro);
 
         System.out.println("Lista de possiveis resultados");
-
-        if (pasta.exists() && pasta.isDirectory()) {
-            if (arquivos != null) {
-                for (File arquivo : arquivos) {
-                    try (FileReader fileReader = new FileReader(arquivo);
-                         BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-                        String linha;
-                        String[] nomesParaVerificar = nome.split(",");
-
-                        while ((linha = bufferedReader.readLine()) != null) {
-
-                            if (linha.startsWith("1 - ")) {
-
-                                String nomeDoArquivo = linha.substring(4).toLowerCase();
-                                for (String palavra : nomesParaVerificar) {
-
-                                    if (nomeDoArquivo.contains(palavra.toLowerCase())) {
-
-                                        String TipoAnimal = bufferedReader.readLine();
-
-                                        if (TipoAnimal != null && TipoAnimal.startsWith("2 - ")) {
-
-                                            String tipoNoArquivo = TipoAnimal.substring(4).trim().toLowerCase();
-
-                                            if (tipoNoArquivo.equals(tipo.toLowerCase())) {
-                                                imprimirArquivo(arquivo);
-                                                ArmazenarArquivos(arquivo);
-                                                encontrado = true;
-                                            }
-                                        }
-                                        break;
-                                    }
-                                }
-                            }
+        List<File> arquivos = verificarArquivos();
+        for (File arquivo : arquivos) {
+            try (FileReader fileReader = new FileReader(arquivo);
+                 BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+                String linha;
+                String[] nomesParaVerificar = nome.split(",");
+                String tipoAnimal = "";
+                String nomeDoArquivo = "";
+                encontrado = false;
+                while ((linha = bufferedReader.readLine()) != null && !encontrado) {
+                    if (linha.startsWith("1 - ")) {
+                        nomeDoArquivo = linha.substring(4).toLowerCase();
+                    } else if (linha.startsWith("2 - ")) {
+                        tipoAnimal = linha.substring(4).toLowerCase().trim();
+                    }
+                    for (String palavra : nomesParaVerificar) {
+                        if (nomeDoArquivo.contains(palavra.toLowerCase()) && tipo.equals(tipoAnimal)) {
+                            imprimirArquivo(arquivo);
+                            ArmazenarArquivos(arquivo);
+                            encontrado = true;
+                            break;
                         }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
                     }
                 }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        } else {
-            System.err.println("Diretório não encontrado");
         }
         if (!encontrado) {
             System.out.println("Nenhum animal encontrado com o nome {" + nome + "} e tipo {" + tipo + "}");
@@ -84,7 +92,6 @@ public class BuscarPet {
 
     public static void buscarPetSexo() {
         String sexo;
-        String tipo;
         int cont = 0;
         arquivosArmazenados.clear();
         do {
@@ -454,7 +461,7 @@ public class BuscarPet {
                 peso = INPUT.nextDouble();
                 System.out.println("Digite a Idade do Animal");
                 idade = INPUT.nextDouble();
-                if (tipo.matches(regex)){
+                if (tipo.matches(regex)) {
                     System.err.println("Você não pode Digitar Símbolos aqui");
                 }
             } catch (NumberFormatException e) {
@@ -473,10 +480,11 @@ public class BuscarPet {
                         double idadeLido = 0;
                         while ((linha = bufferedReader.readLine()) != null) {
                             try {
-                                if (linha.startsWith("2 - ")){
+                                if (linha.startsWith("2 - ")) {
                                     tipoAnimal = linha.substring(4).toLowerCase().trim();
                                 } else if (linha.startsWith("5 - ")) {
-                                    String idadeStr = linha.replace("anos", "").replace("5 - ", "").trim();;
+                                    String idadeStr = linha.replace("anos", "").replace("5 - ", "").trim();
+                                    ;
                                     idadeLido = Double.parseDouble(idadeStr);
                                 } else if (linha.startsWith("6 - ")) {
                                     String pesoStr = linha.replace("kg", "").replace("6 - ", "").trim();

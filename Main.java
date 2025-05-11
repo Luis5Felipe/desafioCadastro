@@ -19,7 +19,7 @@ public class Main {
                 System.out.println("6 - Sair");
                 opcao = input.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("Você só pode Digitar Número Inteiros");
+                System.err.println("Você só pode Digitar Número Inteiros");
                 input.nextLine();
             }
 
