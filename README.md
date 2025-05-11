@@ -66,6 +66,7 @@ Sua aplicação deve ler o conteúdo desse arquivo `.txt` e exibir as perguntas 
 ## 📍Passo 2: Criação do menu inicial 📝
 Após o arquivo estar printando o conteúdo do `formulario.txt` no terminal, você deverá criar um menu inicial com as seguintes opções:
 
+
 1. Cadastrar um novo pet
 2. Alterar os dados do pet cadastrado
 3. Deletar um pet cadastrado
@@ -252,3 +253,40 @@ Caso o usuário escolha a opção 2, você deverá exibir um novo menu com as se
 
 ### Gostou do projeto?
 Se você chegou até aqui, parabéns! Você concluiu o primeiro grande desafio do guia. 🚀
+
+
+## 🚀 Como executar o projeto
+
+### 1. Clone o repositório
+
+---
+
+```bash
+git clone https://github.com/Luis5Felipe/desafioCadastro.git
+```
+## Acesse o diretório do projeto
+
+````bash
+cd desafioCadastro
+````
+
+## Configure os caminhos dos arquivos
+
+- ImprimirArquivos
+- BuscarPet
+- ArmazenarCadastro
+
+````text
+🛠 Substitua os caminhos fixos pelos caminhos corretos do seu sistema ou utilize caminhos relativos para facilitar a portabilidade.
+````
+
+## Compile e execute o projeto manualmente
+
+````bash
+javac Entidades/*.java Services/*.java Utils/*.java Main.java
+````
+
+````bash
+java Main
+````
+

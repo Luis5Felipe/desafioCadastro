@@ -13,9 +13,10 @@ public class ImprimirArquivos {
     public static void imprimirArquivo() {
         File arquivos = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados");
         File[] arquivo = arquivos.listFiles();
-        assert arquivo != null;
-        for (File arq : arquivo){
-            imprimirArquivo(arq);
+        if (arquivo != null){
+            for (File arq : arquivo){
+                imprimirArquivo(arq);
+            }
         }
     }
 
