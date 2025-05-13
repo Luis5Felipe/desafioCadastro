@@ -142,6 +142,6 @@ public class CadastrarPet {
             }
             pet.setRace(rece);
         }while (erro);
-        ArmazenarCadastro.armazenarCadastro(pet);
+        CadastroService.armazenarPet(pet);
     }
 }

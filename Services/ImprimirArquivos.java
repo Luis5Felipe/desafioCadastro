@@ -15,12 +15,12 @@ public class ImprimirArquivos {
         File[] arquivo = arquivos.listFiles();
         if (arquivo != null){
             for (File arq : arquivo){
-                ImprimirArquivo(arq);
+                imprimirArquivo(arq);
             }
         }
     }
 
-    public static void ImprimirArquivo(File arquivo) {
+    public static void imprimirArquivo(File arquivo) {
         String linha;
         List<String> registros  = new ArrayList<>();
         String juntarRegistro = "";

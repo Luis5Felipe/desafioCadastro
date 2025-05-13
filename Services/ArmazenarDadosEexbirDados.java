@@ -19,7 +19,7 @@ public class ArmazenarDadosEexbirDados {
         Scanner input = new Scanner(System.in);
         if (getArquivosArmazenados().isEmpty()) {
             System.out.println("Você precisa Iniciar uma Busca Primeiro Antes de altera");
-            MenuDeBusca.menu();
+            MenuDeBusca.Menu();
         }
         System.out.println("Lista de arquivos que podem ser Alterados");
 
@@ -36,7 +36,7 @@ public class ArmazenarDadosEexbirDados {
                 input.nextLine();
                 if (id <= 0 || id > ArmazenarDadosEexbirDados.getArquivosArmazenados().size()) {
                     System.err.println("Você Digitou um ID que não existe, Faça o Busca novamente!");
-                    MenuDeBusca.menu();
+                    MenuDeBusca.Menu();
                 }
             } catch (NumberFormatException e) {
                 System.err.println("Não são aceitos números ou Símbolos aqui!");

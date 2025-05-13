@@ -28,7 +28,7 @@ public class Main {
                     CadastrarPet.ArmazenarDados();
                     break;
                 case 2:
-                    AlteraCadastro.alterarPet();
+                    CadastroService.alteraPet();
                     break;
                 case 3:
                     DeletarArquivos.DeletarArquivo();
