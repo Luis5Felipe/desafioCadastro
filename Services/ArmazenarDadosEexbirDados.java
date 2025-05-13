@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class ArmazenarDadosEexbirDados {
     protected static List<File> arquivosArmazenados = new ArrayList<>();
-    public static void ArmazenarArquivos(File arquivos) {
+    public static void armazenarArquivos(File arquivos) {
         arquivosArmazenados.add(arquivos);
     }
 

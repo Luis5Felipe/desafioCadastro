@@ -27,28 +27,28 @@ public class MenuDeBusca {
             }
             switch (opcao) {
                 case 1:
-                    BuscarPet.BuscarPetNome();
+                    BuscarPet.buscarPetNome();
                     break;
                 case 2:
-                    BuscarPet.BuscarPetSexo();
+                    BuscarPet.buscarPetSexo();
                     break;
                 case 3:
-                    BuscarPet.BuscarPetIdade();
+                    BuscarPet.buscarPetIdade();
                     break;
                 case 4:
-                    BuscarPet.BuscarPorPeso();
+                    BuscarPet.buscarPorPeso();
                     break;
                 case 5:
-                    BuscarPet.BuscarPorRece();
+                    BuscarPet.buscarPorRece();
                     break;
                 case 6:
-                    BuscarPet.BuscarPetEndereco();
+                    BuscarPet.buscarPetEndereco();
                     break;
                 case 7:
                     BuscarPet.PesquisaPorNomeEidade();
                     break;
                 case 8:
-                    BuscarPet.BuscarPorIdadeEpeso();
+                    BuscarPet.buscarPorIdadeEpeso();
                     break;
                 default:
                     System.err.println("Opção invalida, Tente novamente!");

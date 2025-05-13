@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Services.ArmazenarDadosEexbirDados.ArmazenarArquivos;
+import static Services.ArmazenarDadosEexbirDados.armazenarArquivos;
 import static Services.ArmazenarDadosEexbirDados.arquivosArmazenados;
-import static Services.ImprimirArquivos.ImprimirArquivo;
+import static Services.ImprimirArquivos.imprimirArquivo;
 
 public class BuscarPet {
     private static final Scanner INPUT = new Scanner(System.in);
@@ -21,7 +21,7 @@ public class BuscarPet {
     private static String tipo;
     private static String linha;
 
-    private static List<File> VerificarArquivos() {
+    private static List<File> verificarArquivos() {
         List<File> lista = new ArrayList<>();
         if (pasta.exists() && pasta.isDirectory()) {
             File[] arquivos = pasta.listFiles();
@@ -40,7 +40,7 @@ public class BuscarPet {
         return lista;
     }
 
-    public static void BuscarPetNome() {
+    public static void buscarPetNome() {
         String nome;
         arquivosArmazenados.clear();
         do {
@@ -56,7 +56,7 @@ public class BuscarPet {
         } while (erro);
 
         System.out.println("Lista de possiveis resultados");
-        List<File> arquivos = VerificarArquivos();
+        List<File> arquivos = verificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -72,8 +72,8 @@ public class BuscarPet {
                     }
                     for (String palavra : nomesParaVerificar) {
                         if (nomeDoArquivo.contains(palavra.toLowerCase()) && tipo.equals(tipoAnimal)) {
-                            ImprimirArquivo(arquivo);
-                            ArmazenarArquivos(arquivo);
+                            imprimirArquivo(arquivo);
+                            armazenarArquivos(arquivo);
                             encontrado = true;
                             break;
                         }
@@ -88,7 +88,7 @@ public class BuscarPet {
         }
     }
 
-    public static void BuscarPetSexo() {
+    public static void buscarPetSexo() {
         String sexo;
         arquivosArmazenados.clear();
         do {
@@ -103,7 +103,7 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        List<File> arquivos = VerificarArquivos();
+        List<File> arquivos = verificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -114,8 +114,8 @@ public class BuscarPet {
                         tipoAnimal = linha.substring(4).toLowerCase();
                     } else if (linha.startsWith("3 - ")) {
                         if (sexo.equals(linha.substring(4).toLowerCase()) && tipoAnimal.equals(tipo)) {
-                            ImprimirArquivo(arquivo);
-                            ArmazenarArquivos(arquivo);
+                            imprimirArquivo(arquivo);
+                            armazenarArquivos(arquivo);
                             encontrado = true;
                         }
                     }
@@ -129,7 +129,7 @@ public class BuscarPet {
         }
     }
 
-    public static void BuscarPetIdade() {
+    public static void buscarPetIdade() {
         double idadeDouble = 0;
         arquivosArmazenados.clear();
         String idade;
@@ -146,7 +146,7 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        List<File> arquivos = VerificarArquivos();
+        List<File> arquivos = verificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -160,8 +160,8 @@ public class BuscarPet {
                         try {
                             double idadeLida = Double.parseDouble(idadeStr);
                             if (idadeLida == idadeDouble && tipoAnimal.equals(tipo)) {
-                                ImprimirArquivo(arquivo);
-                                ArmazenarArquivos(arquivo);
+                                imprimirArquivo(arquivo);
+                                armazenarArquivos(arquivo);
                                 encontrado = true;
                                 break;
                             }
@@ -180,7 +180,7 @@ public class BuscarPet {
         }
     }
 
-    public static void BuscarPorPeso() {
+    public static void buscarPorPeso() {
         double peso = 0;
         arquivosArmazenados.clear();
         do {
@@ -195,7 +195,7 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        List<File> arquivos = VerificarArquivos();
+        List<File> arquivos = verificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -209,8 +209,8 @@ public class BuscarPet {
                         try {
                             double pesoLido = Double.parseDouble(pesoStr);
                             if (pesoLido == peso && tipoAnimal.equals(tipo)) {
-                                ImprimirArquivo(arquivo);
-                                ArmazenarArquivos(arquivo);
+                                imprimirArquivo(arquivo);
+                                armazenarArquivos(arquivo);
                                 encontrado = true;
                                 break;
                             }
@@ -229,7 +229,7 @@ public class BuscarPet {
         }
     }
 
-    public static void BuscarPorRece() {
+    public static void buscarPorRece() {
         String rece;
         arquivosArmazenados.clear();
         do {
@@ -243,7 +243,7 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        List<File> arquivos = VerificarArquivos();
+        List<File> arquivos = verificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -254,8 +254,8 @@ public class BuscarPet {
                         tipoAnimal = linha.substring(4).toLowerCase();
                     } else if (linha.startsWith("7 - ")) {
                         if (rece.equals(linha.substring(4).toLowerCase()) && tipoAnimal.equals(tipo)) {
-                            ImprimirArquivo(arquivo);
-                            ArmazenarArquivos(arquivo);
+                            imprimirArquivo(arquivo);
+                            armazenarArquivos(arquivo);
                             encontrado = true;
                             break;
                         }
@@ -270,7 +270,7 @@ public class BuscarPet {
         }
     }
 
-    public static void BuscarPetEndereco() {
+    public static void buscarPetEndereco() {
         String endereco;
         arquivosArmazenados.clear();
         String regex = ".*[^0-9a-zA-ZÀ-ÿ\\s,].*";
@@ -285,7 +285,7 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        List<File> arquivos = VerificarArquivos();
+        List<File> arquivos = verificarArquivos();
         for (File arquivo : arquivos) {
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivo))) {
                 String tipoAnimal = "";
@@ -299,8 +299,8 @@ public class BuscarPet {
                         for (String parteEndereco : enderecoDividido) {
                             if (enderecoNoArquivo.contains(parteEndereco.trim().toLowerCase())) {
                                 if (tipoAnimal.equalsIgnoreCase(tipo)) {
-                                    ImprimirArquivo(arquivo);
-                                    ArmazenarArquivos(arquivo);
+                                    imprimirArquivo(arquivo);
+                                    armazenarArquivos(arquivo);
                                     encontrado = true;
                                 }
                                 break;
@@ -343,7 +343,7 @@ public class BuscarPet {
         } while (erro);
 
         System.out.println("Lista de possiveis resultados");
-        List<File> arquivos = VerificarArquivos();
+        List<File> arquivos = verificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -363,8 +363,8 @@ public class BuscarPet {
                             idadeLida = Double.parseDouble(idadeStr);
                             for (String palavra : nomesParaVerificar) {
                                 if (nomeDoArquivo.contains(palavra.toLowerCase()) && tipoNoArquivo.equals(tipo.toLowerCase()) && idadeDouble == idadeLida) {
-                                    ImprimirArquivo(arquivo);
-                                    ArmazenarArquivos(arquivo);
+                                    imprimirArquivo(arquivo);
+                                    armazenarArquivos(arquivo);
                                     encontrado = true;
                                     break;
                                 }
@@ -383,7 +383,7 @@ public class BuscarPet {
         }
     }
 
-    public static void BuscarPorIdadeEpeso() {
+    public static void buscarPorIdadeEpeso() {
         double peso = 0;
         double idade = 0;
         String tipo;
@@ -405,7 +405,7 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        List<File> arquivos = VerificarArquivos();
+        List<File> arquivos = verificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -425,8 +425,8 @@ public class BuscarPet {
                             pesoLido = Double.parseDouble(pesoStr);
                         }
                         if (pesoLido == peso && idade == idadeLido && tipo.equals(tipoAnimal)) {
-                            ImprimirArquivo(arquivo);
-                            ArmazenarArquivos(arquivo);
+                            imprimirArquivo(arquivo);
+                            armazenarArquivos(arquivo);
                             encontrado = true;
                             break;
                         }

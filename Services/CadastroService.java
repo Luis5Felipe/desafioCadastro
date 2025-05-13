@@ -43,7 +43,6 @@ public class CadastroService {
         } catch (IOException e) {
             throw new RuntimeException("Erro ao criar o arquivo: "+ e.getMessage());
         }
-
     }
 
     public static void alteraPet() {
