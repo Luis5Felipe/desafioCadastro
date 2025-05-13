@@ -1,10 +1,10 @@
-package Services;
+package services;
 
-import Entidades.Pet;
-import Utils.Exception.IdadeException;
-import Utils.Exception.PesoException;
-import Utils.SexoPet;
-import Utils.TipoAnimal;
+import entidades.Pet;
+import utils.exception.IdadeException;
+import utils.exception.PesoException;
+import utils.SexoPet;
+import utils.TipoAnimal;
 
 import java.util.Scanner;
 

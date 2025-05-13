@@ -1,4 +1,4 @@
-package Services;
+package services;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Services.ArmazenarDadosEexbirDados.armazenarArquivos;
-import static Services.ArmazenarDadosEexbirDados.arquivosArmazenados;
-import static Services.ImprimirArquivos.imprimirArquivo;
+import static services.ArmazenarDadosEexbirDados.armazenarArquivos;
+import static services.ArmazenarDadosEexbirDados.arquivosArmazenados;
+import static services.ImprimirArquivos.imprimirArquivo;
 
 public class BuscarPet {
     private static final Scanner INPUT = new Scanner(System.in);

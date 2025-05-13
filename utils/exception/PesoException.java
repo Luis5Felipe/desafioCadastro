@@ -1,4 +1,4 @@
-package Utils.Exception;
+package utils.exception;
 
 public class PesoException extends RuntimeException {
     public PesoException(String message) {

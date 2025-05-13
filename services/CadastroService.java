@@ -1,6 +1,6 @@
-package Services;
+package services;
 
-import Entidades.Pet;
+import entidades.Pet;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -46,6 +46,7 @@ public class CadastroService {
     }
 
     public static void alteraPet() {
+        boolean petAlterado = false;
         Scanner input = new Scanner(System.in);
         int id = ArmazenarDadosEexbirDados.ExibirDados();
         File arquivo = ArmazenarDadosEexbirDados.getArquivosArmazenados().get(id - 1);
@@ -66,9 +67,13 @@ public class CadastroService {
             for (String novaLinha : novasLinhas) {
                 bufferedWriter.write(novaLinha);
                 bufferedWriter.newLine();
+                petAlterado = true;
             }
         } catch (IOException e) {
             throw new RuntimeException("Erro ao escrever no arquivo: " + e.getMessage());
+        }
+        if (petAlterado){
+            System.out.println("Cadastro alterado com sucesso");
         }
     }
 

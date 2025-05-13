@@ -283,7 +283,7 @@ cd desafioCadastro
 ## Compile e execute o projeto manualmente
 
 ````bash
-javac Entidades/*.java Services/*.java Utils/*.java Main.java
+javac entidades/*.java services/*.java utils/*.java Main.java
 ````
 
 ````bash

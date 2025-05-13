@@ -1,7 +1,7 @@
-package Entidades;
+package entidades;
 
-import Utils.SexoPet;
-import Utils.TipoAnimal;
+import utils.SexoPet;
+import utils.TipoAnimal;
 
 public class Pet {
     private String nome;
