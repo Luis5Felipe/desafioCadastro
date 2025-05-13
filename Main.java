@@ -10,6 +10,7 @@ public class Main {
         while (true) {
             try {
                 System.out.println();
+                System.out.println("============ Sistema de Cadastro ============");
                 System.out.println("Escolha uma das opcao");
                 System.out.println("1 - Cadastrar um novo pet");
                 System.out.println("2 - Alterar os dados do pet cadastrado");
