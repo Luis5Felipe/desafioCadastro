@@ -96,6 +96,8 @@ public class CadastrarPet {
                 double idadeDouble = Double.parseDouble(idade.replace(",", "."));
                 if (idadeDouble > 20) {
                     throw new IdadeException("Idade Maior que 20 anos");
+                } else if (idadeDouble < 0) {
+                    throw new IdadeException("Idade não pode ser negativa");
                 }
                 if (idadeDouble < 12) {
                     double idadeEmAnos = idadeDouble / 12;
@@ -109,6 +111,7 @@ public class CadastrarPet {
                 erro = true;
             } catch (IdadeException e) {
                 System.err.println(e.getMessage());
+                erro = true;
             }
         } while (erro);
 
