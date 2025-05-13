@@ -21,7 +21,7 @@ public class BuscarPet {
     private static String tipo;
     private static String linha;
 
-    private static List<File> verificarArquivos() {
+    private static List<File> VerificarArquivos() {
         List<File> lista = new ArrayList<>();
         if (pasta.exists() && pasta.isDirectory()) {
             File[] arquivos = pasta.listFiles();
@@ -40,7 +40,7 @@ public class BuscarPet {
         return lista;
     }
 
-    public static void buscarPetNome() {
+    public static void BuscarPetNome() {
         String nome;
         arquivosArmazenados.clear();
         do {
@@ -56,7 +56,7 @@ public class BuscarPet {
         } while (erro);
 
         System.out.println("Lista de possiveis resultados");
-        List<File> arquivos = verificarArquivos();
+        List<File> arquivos = VerificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -88,7 +88,7 @@ public class BuscarPet {
         }
     }
 
-    public static void buscarPetSexo() {
+    public static void BuscarPetSexo() {
         String sexo;
         arquivosArmazenados.clear();
         do {
@@ -103,7 +103,7 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        List<File> arquivos = verificarArquivos();
+        List<File> arquivos = VerificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -129,7 +129,7 @@ public class BuscarPet {
         }
     }
 
-    public static void buscarPetIdade() {
+    public static void BuscarPetIdade() {
         double idadeDouble = 0;
         arquivosArmazenados.clear();
         String idade;
@@ -146,7 +146,7 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        List<File> arquivos = verificarArquivos();
+        List<File> arquivos = VerificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -180,7 +180,7 @@ public class BuscarPet {
         }
     }
 
-    public static void buscaPorPeso() {
+    public static void BuscarPorPeso() {
         double peso = 0;
         arquivosArmazenados.clear();
         do {
@@ -195,7 +195,7 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        List<File> arquivos = verificarArquivos();
+        List<File> arquivos = VerificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -229,7 +229,7 @@ public class BuscarPet {
         }
     }
 
-    public static void buscaPorRece() {
+    public static void BuscarPorRece() {
         String rece;
         arquivosArmazenados.clear();
         do {
@@ -243,7 +243,7 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        List<File> arquivos = verificarArquivos();
+        List<File> arquivos = VerificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -285,7 +285,7 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        List<File> arquivos = verificarArquivos();
+        List<File> arquivos = VerificarArquivos();
         for (File arquivo : arquivos) {
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivo))) {
                 String tipoAnimal = "";
@@ -343,7 +343,7 @@ public class BuscarPet {
         } while (erro);
 
         System.out.println("Lista de possiveis resultados");
-        List<File> arquivos = verificarArquivos();
+        List<File> arquivos = VerificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -383,7 +383,7 @@ public class BuscarPet {
         }
     }
 
-    public static void buscaPorIdadeEpeso() {
+    public static void BuscarPorIdadeEpeso() {
         double peso = 0;
         double idade = 0;
         String tipo;
@@ -405,7 +405,7 @@ public class BuscarPet {
                 erro = true;
             }
         } while (erro);
-        List<File> arquivos = verificarArquivos();
+        List<File> arquivos = VerificarArquivos();
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {

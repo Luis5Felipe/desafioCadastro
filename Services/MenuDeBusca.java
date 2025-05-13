@@ -3,7 +3,7 @@ package Services;
 import java.util.Scanner;
 
 public class MenuDeBusca {
-    public static void menu() {
+    public static void Menu() {
         boolean erro;
         Scanner input = new Scanner(System.in);
         do {
@@ -27,19 +27,19 @@ public class MenuDeBusca {
             }
             switch (opcao) {
                 case 1:
-                    BuscarPet.buscarPetNome();
+                    BuscarPet.BuscarPetNome();
                     break;
                 case 2:
-                    BuscarPet.buscarPetSexo();
+                    BuscarPet.BuscarPetSexo();
                     break;
                 case 3:
-                    BuscarPet.buscarPetIdade();
+                    BuscarPet.BuscarPetIdade();
                     break;
                 case 4:
-                    BuscarPet.buscaPorPeso();
+                    BuscarPet.BuscarPorPeso();
                     break;
                 case 5:
-                    BuscarPet.buscaPorRece();
+                    BuscarPet.BuscarPorRece();
                     break;
                 case 6:
                     BuscarPet.BuscarPetEndereco();
@@ -48,7 +48,7 @@ public class MenuDeBusca {
                     BuscarPet.PesquisaPorNomeEidade();
                     break;
                 case 8:
-                    BuscarPet.buscaPorIdadeEpeso();
+                    BuscarPet.BuscarPorIdadeEpeso();
                     break;
                 default:
                     System.err.println("Opção invalida, Tente novamente!");

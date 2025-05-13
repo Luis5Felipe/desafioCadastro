@@ -37,7 +37,7 @@ public class Main {
                     ImprimirArquivos.imprimirArquivo();
                     break;
                 case 5:
-                    MenuDeBusca.menu();
+                    MenuDeBusca.Menu();
                     break;
                 case 6:
                     input.close();
