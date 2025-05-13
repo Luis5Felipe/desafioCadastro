@@ -262,7 +262,7 @@ Se você chegou até aqui, parabéns! Você concluiu o primeiro grande desafio d
 ---
 
 ```bash
-git clone https://github.com/Luis5Felipe/desafioCadastro.git
+git clone git@github.com:Luis5Felipe/desafioCadastro.git
 ```
 ## Acesse o diretório do projeto
 
