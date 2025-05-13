@@ -50,10 +50,10 @@ public class CadastrarPet {
         do {
             erro = false;
             System.out.println(perguntas[2]);
-            String TipoSexoAnimal = input.nextLine();
-            if (SexoPet.MACHO.getSexoPet().equalsIgnoreCase(TipoSexoAnimal)) {
+            String tipoSexoAnimal = input.nextLine();
+            if (SexoPet.MACHO.getSexoPet().equalsIgnoreCase(tipoSexoAnimal)) {
                 pet.setSexoPet(SexoPet.MACHO);
-            } else if (SexoPet.FEMEA.getSexoPet().equalsIgnoreCase(TipoSexoAnimal)) {
+            } else if (SexoPet.FEMEA.getSexoPet().equalsIgnoreCase(tipoSexoAnimal)) {
                 pet.setSexoPet(SexoPet.FEMEA);
             } else {
                 System.out.println("Você deve Digita {Macho} ou {Fêmea}");

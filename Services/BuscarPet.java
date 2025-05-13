@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 import static Services.ArmazenarDadosEexbirDados.ArmazenarArquivos;
 import static Services.ArmazenarDadosEexbirDados.arquivosArmazenados;
-import static Services.ImprimirArquivos.imprimirArquivo;
+import static Services.ImprimirArquivos.ImprimirArquivo;
 
 public class BuscarPet {
     private static final Scanner INPUT = new Scanner(System.in);
@@ -72,7 +72,7 @@ public class BuscarPet {
                     }
                     for (String palavra : nomesParaVerificar) {
                         if (nomeDoArquivo.contains(palavra.toLowerCase()) && tipo.equals(tipoAnimal)) {
-                            imprimirArquivo(arquivo);
+                            ImprimirArquivo(arquivo);
                             ArmazenarArquivos(arquivo);
                             encontrado = true;
                             break;
@@ -114,7 +114,7 @@ public class BuscarPet {
                         tipoAnimal = linha.substring(4).toLowerCase();
                     } else if (linha.startsWith("3 - ")) {
                         if (sexo.equals(linha.substring(4).toLowerCase()) && tipoAnimal.equals(tipo)) {
-                            imprimirArquivo(arquivo);
+                            ImprimirArquivo(arquivo);
                             ArmazenarArquivos(arquivo);
                             encontrado = true;
                         }
@@ -160,7 +160,7 @@ public class BuscarPet {
                         try {
                             double idadeLida = Double.parseDouble(idadeStr);
                             if (idadeLida == idadeDouble && tipoAnimal.equals(tipo)) {
-                                imprimirArquivo(arquivo);
+                                ImprimirArquivo(arquivo);
                                 ArmazenarArquivos(arquivo);
                                 encontrado = true;
                                 break;
@@ -209,7 +209,7 @@ public class BuscarPet {
                         try {
                             double pesoLido = Double.parseDouble(pesoStr);
                             if (pesoLido == peso && tipoAnimal.equals(tipo)) {
-                                imprimirArquivo(arquivo);
+                                ImprimirArquivo(arquivo);
                                 ArmazenarArquivos(arquivo);
                                 encontrado = true;
                                 break;
@@ -254,7 +254,7 @@ public class BuscarPet {
                         tipoAnimal = linha.substring(4).toLowerCase();
                     } else if (linha.startsWith("7 - ")) {
                         if (rece.equals(linha.substring(4).toLowerCase()) && tipoAnimal.equals(tipo)) {
-                            imprimirArquivo(arquivo);
+                            ImprimirArquivo(arquivo);
                             ArmazenarArquivos(arquivo);
                             encontrado = true;
                             break;
@@ -299,7 +299,7 @@ public class BuscarPet {
                         for (String parteEndereco : enderecoDividido) {
                             if (enderecoNoArquivo.contains(parteEndereco.trim().toLowerCase())) {
                                 if (tipoAnimal.equalsIgnoreCase(tipo)) {
-                                    imprimirArquivo(arquivo);
+                                    ImprimirArquivo(arquivo);
                                     ArmazenarArquivos(arquivo);
                                     encontrado = true;
                                 }
@@ -363,7 +363,7 @@ public class BuscarPet {
                             idadeLida = Double.parseDouble(idadeStr);
                             for (String palavra : nomesParaVerificar) {
                                 if (nomeDoArquivo.contains(palavra.toLowerCase()) && tipoNoArquivo.equals(tipo.toLowerCase()) && idadeDouble == idadeLida) {
-                                    imprimirArquivo(arquivo);
+                                    ImprimirArquivo(arquivo);
                                     ArmazenarArquivos(arquivo);
                                     encontrado = true;
                                     break;
@@ -425,7 +425,7 @@ public class BuscarPet {
                             pesoLido = Double.parseDouble(pesoStr);
                         }
                         if (pesoLido == peso && idade == idadeLido && tipo.equals(tipoAnimal)) {
-                            imprimirArquivo(arquivo);
+                            ImprimirArquivo(arquivo);
                             ArmazenarArquivos(arquivo);
                             encontrado = true;
                             break;
