@@ -58,14 +58,6 @@ README.md
 
 ### Passos para Execução
 
-1. Configure os caminhos dos arquivos
-
-- ImprimirArquivos
-- BuscarPet
-- ArmazenarCadastro
-
-Substitua os caminhos fixos pelos caminhos corretos do seu sistema ou utilize caminhos relativos para facilitar a portabilidade.
-
 1. Clone este repositório:
    ```bash
    git clone git@github.com:Luis5Felipe/desafioCadastro.git

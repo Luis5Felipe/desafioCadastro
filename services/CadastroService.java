@@ -20,7 +20,7 @@ public class CadastroService {
                 .replace(":", "");
 
         String arquivo = data + "-" + pet.getNome().replace(" ","").toUpperCase() + ".txt";
-        File file = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados\\" + arquivo);
+        File file = new File("petsCadastrados\\" + arquivo);
 
         try (FileWriter fileWriter = new FileWriter(file);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {

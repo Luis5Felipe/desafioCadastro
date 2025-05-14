@@ -11,7 +11,7 @@ public class ImprimirArquivos {
     private static int contador = 0;
 
     public static void imprimirArquivo() {
-        File arquivos = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados");
+        File arquivos = new File("petsCadastrados");
         File[] arquivo = arquivos.listFiles();
         if (arquivo != null){
             for (File arq : arquivo){

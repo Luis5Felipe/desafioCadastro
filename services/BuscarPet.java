@@ -14,7 +14,7 @@ import static services.ImprimirArquivos.imprimirArquivo;
 
 public class BuscarPet {
     private static final Scanner INPUT = new Scanner(System.in);
-    private static final File pasta = new File("D:\\Projetos\\Desafios\\desafioCadastro\\petsCadastrados");
+    private static final File pasta = new File("petsCadastrados");
     private static boolean encontrado = false;
     private static boolean erro = false;
     private static final String regex = ".*[^a-zA-ZÀ-ÿ\\s].*";
@@ -57,6 +57,7 @@ public class BuscarPet {
 
         System.out.println("Lista de possiveis resultados");
         List<File> arquivos = verificarArquivos();
+        boolean  encontradoArquivo = false;
         for (File arquivo : arquivos) {
             try (FileReader fileReader = new FileReader(arquivo);
                  BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -75,6 +76,7 @@ public class BuscarPet {
                             imprimirArquivo(arquivo);
                             armazenarArquivos(arquivo);
                             encontrado = true;
+                            encontradoArquivo = true;
                             break;
                         }
                     }
@@ -83,7 +85,7 @@ public class BuscarPet {
                 throw new RuntimeException("Falha ao tentar Ler o arquivo!!" + e.getMessage());
             }
         }
-        if (!encontrado) {
+        if (!encontradoArquivo) {
             System.out.println("Nenhum animal encontrado com o nome {" + nome + "} e tipo {" + tipo + "}");
         }
     }
